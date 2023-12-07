@@ -2,27 +2,41 @@
     "name": "g11n-cli",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "apps/g11n-cli/src",
-    "projectType": "library",
+    "projectType": "application",
     "targets": {
         "build": {
-            "executor": "@nx/rollup:rollup",
+            "executor": "@nx/webpack:webpack",
             "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
             "options": {
-                "outputPath": "dist/apps/g11n-cli",
-                "main": "apps/g11n-cli/src/cli.ts",
-                "tsConfig": "apps/g11n-cli/tsconfig.lib.json",
-                "assets": [
-                    "apps/g11n-cli/src/bin/g11n-cli.js"
-                ],
-                "project": "apps/g11n-cli/package.json",
-                "compiler": "swc",
-                "babelUpwardRootMode": true,
-                "updateBuildableProjectDepsInPackageJson": true
+                "target": "node",
+                "compiler": "tsc",
+                "outputPath": "apps/g11n-cli/dist",
+                "main": "apps/g11n-cli/src/main.ts",
+                "tsConfig": "apps/g11n-cli/tsconfig.app.json",
+                "assets": [],
+                "isolatedConfig": true,
+                "webpackConfig": "apps/g11n-cli/webpack.config.js"
+            },
+            "configurations": {
+                "development": {},
+                "production": {}
             }
         },
-        "publish": {
-            "command": "node tools/scripts/publish.mjs g11n-cli {args.ver} {args.tag}",
-            "dependsOn": ["build"]
+        "serve": {
+            "executor": "@nx/js:node",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "g11n-cli:build"
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "g11n-cli:build:development"
+                },
+                "production": {
+                    "buildTarget": "g11n-cli:build:production"
+                }
+            }
         },
         "lint": {
             "executor": "@nx/eslint:lint",
