@@ -3,6 +3,7 @@
         "devkit",
         "pmmmwh",
         "storysource",
-        "svgr"
+        "svgr",
+        "vebgen"
     ]
 }

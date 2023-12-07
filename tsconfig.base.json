@@ -15,7 +15,7 @@
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
         "paths": {
-
+            "@vebgen/g11n": ["packages/g11n/src/index.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]

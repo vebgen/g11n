@@ -2,6 +2,11 @@
 
 Monorepo for typescript packages related to globalization.
 
+Check out individual package READMEs for more information:
+
+- [@vebgen/g11n](./packages/g11n/README.md)
+
+
 ## Folder Structure
 
 ### Top Level
