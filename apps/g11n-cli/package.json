@@ -1,12 +1,12 @@
 {
     "name": "@vebgen/g11n-cli",
     "description": "A command line tool for collecting and generating i18n files.",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "type": "module",
     "private": false,
     "main": "../../dist/apps/g11n-cli/cli.cjs",
     "bin": {
-        "g11n-cli": "./bin/g11n-cli.js"
+        "g11n-cli": "./src/bin/g11n-cli.js"
     },
     "repository": {
         "type": "git",
