@@ -1,4 +1,26 @@
 {
     "name": "@vebgen/g11n",
-    "version": "0.0.1"
+    "version": "0.0.3",
+    "type": "module",
+    "private": false,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vebgen/g11n.git",
+        "directory": "packages/g11n"
+    },
+    "bugs": {
+        "url": "https://github.com/vebgen/g11n/issues"
+    },
+    "homepage": "https://github.com/vebgen/g11n",
+    "license": "MIT",
+    "keywords": [
+        "i18n",
+        "g11n",
+        "internationalization",
+        "localization",
+        "translation"
+    ],
+    "publishConfig": {
+        "access": "public"
+    }
 }

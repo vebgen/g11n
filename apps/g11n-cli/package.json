@@ -1,8 +1,9 @@
 {
     "name": "@vebgen/g11n-cli",
     "description": "A command line tool for collecting and generating i18n files.",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "type": "module",
+    "private": false,
     "main": "../../dist/apps/g11n-cli/cli.cjs",
     "bin": {
         "g11n-cli": "./bin/g11n-cli.js"
@@ -18,6 +19,7 @@
     "homepage": "https://github.com/vebgen/g11n",
     "license": "MIT",
     "keywords": [
+        "cli",
         "i18n",
         "g11n",
         "internationalization",
