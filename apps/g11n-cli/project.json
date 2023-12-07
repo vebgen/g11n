@@ -11,7 +11,9 @@
                 "outputPath": "dist/apps/g11n-cli",
                 "main": "apps/g11n-cli/src/cli.ts",
                 "tsConfig": "apps/g11n-cli/tsconfig.lib.json",
-                "assets": [],
+                "assets": [
+                    "apps/g11n-cli/src/bin/g11n-cli.js"
+                ],
                 "project": "apps/g11n-cli/package.json",
                 "compiler": "swc",
                 "babelUpwardRootMode": true,

@@ -16,7 +16,7 @@
         "baseUrl": ".",
         "paths": {
             "@vebgen/g11n": ["packages/g11n/src/index.ts"],
-            "@vebgen/g11n-cli": ["apps/g11n-cli/src/index.ts"]
+            "@vebgen/g11n-cli": ["apps/g11n-cli/src/cli.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]
