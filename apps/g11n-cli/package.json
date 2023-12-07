@@ -18,7 +18,11 @@
     "homepage": "https://github.com/vebgen/g11n",
     "license": "MIT",
     "keywords": [
-        "i18n", "g11n", "internationalization", "localization", "translation"
+        "i18n",
+        "g11n",
+        "internationalization",
+        "localization",
+        "translation"
     ],
     "publishConfig": {
         "access": "public"
