@@ -16,7 +16,7 @@
                 "tsConfig": "apps/g11n-cli/tsconfig.app.json",
                 "assets": [],
                 "isolatedConfig": true,
-                "webpackConfig": "apps/g11n-cli/webpack.config.js"
+                "webpackConfig": "apps/g11n-cli/webpack.config.cjs"
             },
             "configurations": {
                 "development": {},
