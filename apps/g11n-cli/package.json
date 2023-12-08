@@ -1,9 +1,13 @@
 {
     "name": "@vebgen/g11n-cli",
-    "version": "0.0.8",
+    "description": "CLI for g11n",
+    "version": "0.0.9",
     "main": "dist/main.js",
     "type": "module",
     "bin": {
         "g11n-cli": "./bin/g11n-cli.js"
+    },
+    "publishConfig": {
+        "directory": "dist"
     }
 }

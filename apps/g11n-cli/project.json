@@ -19,7 +19,9 @@
                 "webpackConfig": "apps/g11n-cli/webpack.config.cjs"
             },
             "configurations": {
-                "development": {},
+                "development": {
+                    "watch": true
+                },
                 "production": {}
             }
         },
@@ -27,7 +29,8 @@
             "executor": "@nx/js:node",
             "defaultConfiguration": "development",
             "options": {
-                "buildTarget": "g11n-cli:build"
+                "buildTarget": "g11n-cli:build",
+                "args": ["update"]
             },
             "configurations": {
                 "development": {
