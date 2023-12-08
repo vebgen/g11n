@@ -2,6 +2,7 @@
     "name": "@vebgen/g11n-cli",
     "version": "0.0.6",
     "main": "dist/main.js",
+    "type": "module",
     "bin": {
         "g11n-cli": "./bin/g11n-cli.js"
     }
