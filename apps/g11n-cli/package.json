@@ -7,6 +7,10 @@
     "bin": {
         "g11n-cli": "./bin/g11n-cli.js"
     },
+    "dependencies": {
+        "commander": "^11.1.0",
+        "@formatjs/cli-lib": "^6.2.4"
+    },
     "publishConfig": {
         "directory": "dist"
     }
