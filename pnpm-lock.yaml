@@ -310,6 +310,7 @@ importers:
       react-intl:
         specifier: ^6.4.3
         version: 6.4.3(react@18.2.0)(typescript@5.2.2)
+    publishDirectory: ../../dist/packages/g11n
 
 packages:
 
