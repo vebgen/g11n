@@ -1,6 +1,6 @@
 {
     "name": "@vebgen/g11n",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "type": "module",
     "private": false,
     "repository": {
@@ -22,5 +22,12 @@
     ],
     "publishConfig": {
         "access": "public"
+    },
+    "peerDependencies": {
+        "react": "18.2.0",
+        "core-js": "^3.6.5"
+    },
+    "dependencies": {
+        "react-intl": "^6.4.3"
     }
 }

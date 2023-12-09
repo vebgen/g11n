@@ -1,5 +1,10 @@
-import { FC, useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { IntlConfig, IntlShape, RawIntlProvider, createIntl, createIntlCache } from 'react-intl';
+import {
+    FC, useCallback, useEffect, useMemo, useReducer, useRef
+} from "react";
+import {
+    IntlConfig, IntlShape, RawIntlProvider, createIntl, createIntlCache
+} from 'react-intl';
+
 import { G11nProvider } from "../common/context";
 
 
@@ -273,7 +278,7 @@ export const FetchController: FC<FetchControllerProps> = ({
         }
 
         // If the locale does exist in the messages, then change it.
-        if (state.messages.hasOwnProperty(locale)) {
+        if (Object.prototype.hasOwnProperty.call(state.messages, locale)) {
             // console.log("[FetchController] locale found in cache.");
             dispatch({
                 type: 'setLocale',
@@ -348,7 +353,7 @@ export const FetchController: FC<FetchControllerProps> = ({
                 // console.log("[FetchController] a pending request was aborted");
             }
         }
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 
     // The value for react-intl context.
@@ -367,6 +372,8 @@ export const FetchController: FC<FetchControllerProps> = ({
             messages,
             ...rest,
         }, createIntlCache());
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [state.locale, state.messages]);
     // console.log("[FetchController] Intl value is now %O", value);
 

@@ -3,26 +3,41 @@
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "packages/g11n/src",
     "projectType": "library",
-    "tags": ["internationalization"],
+    "tags": [
+        "internationalization"
+    ],
     "targets": {
         "lint": {
             "executor": "@nx/eslint:lint",
-            "outputs": ["{options.outputFile}"],
+            "outputs": [
+                "{options.outputFile}"
+            ],
             "options": {
-                "lintFilePatterns": ["packages/g11n/**/*.{ts,tsx,js,jsx}"]
+                "lintFilePatterns": [
+                    "packages/g11n/**/*.{ts,tsx,js,jsx}",
+                    "packages/g11n/package.json"
+                ]
             }
         },
         "build": {
             "executor": "@nx/rollup:rollup",
-            "outputs": ["{options.outputPath}"],
+            "outputs": [
+                "{options.outputPath}"
+            ],
             "options": {
+                "main": "packages/g11n/src/index.ts",
                 "outputPath": "dist/packages/g11n",
                 "tsConfig": "packages/g11n/tsconfig.lib.json",
                 "project": "packages/g11n/package.json",
+                "generateExportsField": true,
                 "entryFile": "packages/g11n/src/index.ts",
-                "external": ["react", "react-dom", "react/jsx-runtime"],
-                "rollupConfig": "@nx/react/plugins/bundle-rollup",
+                "external": "all",
+                "rollupConfig": "packages/g11n/bundle-rollup.cjs",
                 "compiler": "babel",
+                "format": [
+                    "esm",
+                    "cjs"
+                ],
                 "assets": [
                     {
                         "glob": "packages/g11n/README.md",
@@ -30,13 +45,14 @@
                         "output": "."
                     }
                 ],
-                "babelUpwardRootMode": true,
                 "updateBuildableProjectDepsInPackageJson": true
             }
         },
         "test": {
             "executor": "@nx/jest:jest",
-            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+            ],
             "options": {
                 "jestConfig": "packages/g11n/jest.config.ts"
             }
@@ -55,7 +71,9 @@
         },
         "build-storybook": {
             "executor": "@nx/storybook:build",
-            "outputs": ["{options.outputDir}"],
+            "outputs": [
+                "{options.outputDir}"
+            ],
             "options": {
                 "outputDir": "dist/storybook/g11n",
                 "configDir": "packages/g11n/.storybook"

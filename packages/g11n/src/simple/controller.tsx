@@ -1,5 +1,8 @@
 import { FC, useMemo, useState } from "react";
-import { IntlConfig, IntlShape, RawIntlProvider, createIntl, createIntlCache } from 'react-intl';
+import {
+    IntlConfig, IntlShape, RawIntlProvider, createIntl, createIntlCache
+} from 'react-intl';
+
 import { G11nProvider } from "../common/context";
 
 
@@ -62,7 +65,7 @@ export const SimpleController: FC<SimpleControllerProps> = ({
             messages: messages[locale],
             ...rest,
         }, createIntlCache())
-    ), [locale, messages]);
+    ), [locale, messages]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <G11nProvider value={{
