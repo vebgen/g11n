@@ -38,6 +38,15 @@
                     "codeCoverage": true
                 }
             }
+        },
+        "build-storybook": {
+            "cache": true,
+            "inputs": [
+                "default",
+                "^production",
+                "{projectRoot}/.storybook/**/*",
+                "{projectRoot}/tsconfig.storybook.json"
+            ]
         }
     },
     "namedInputs": {
@@ -90,6 +99,13 @@
         "@nx/js": {
             "library": {
                 "buildable": true
+            }
+        }
+    },
+    "tasksRunnerOptions": {
+        "default": {
+            "options": {
+                "cacheableOperations": ["build-storybook"]
             }
         }
     }

@@ -40,6 +40,49 @@
             "options": {
                 "jestConfig": "packages/g11n/jest.config.ts"
             }
+        },
+        "storybook": {
+            "executor": "@nx/storybook:storybook",
+            "options": {
+                "port": 4978,
+                "configDir": "packages/g11n/.storybook"
+            },
+            "configurations": {
+                "ci": {
+                    "quiet": true
+                }
+            }
+        },
+        "build-storybook": {
+            "executor": "@nx/storybook:build",
+            "outputs": ["{options.outputDir}"],
+            "options": {
+                "outputDir": "dist/storybook/g11n",
+                "configDir": "packages/g11n/.storybook"
+            },
+            "configurations": {
+                "ci": {
+                    "quiet": true
+                }
+            }
+        },
+        "test-storybook": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "test-storybook -c packages/g11n/.storybook --url=http://localhost:4978"
+            }
+        },
+        "static-storybook": {
+            "executor": "@nx/web:file-server",
+            "options": {
+                "buildTarget": "g11n:build-storybook",
+                "staticFilePath": "dist/storybook/g11n"
+            },
+            "configurations": {
+                "ci": {
+                    "buildTarget": "g11n:build-storybook:ci"
+                }
+            }
         }
     }
 }

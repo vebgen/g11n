@@ -122,6 +122,19 @@ export interface SetLocaleAction {
 
 
 /**
+ * A request for this locale is about to be sent.
+ */
+export interface SetRequestedLocaleAction {
+    type: 'setRequestedLocale';
+
+    /**
+     * The new locale.
+     */
+    locale: string;
+};
+
+
+/**
  * The action sets the error state. The locale will be set from the
  * `requestedLocale` state member.
  */
@@ -158,6 +171,7 @@ export interface SetMessagesAction {
  * The actions that can be dispatched to the reducer.
  */
 export type FetchAction =
+    | SetRequestedLocaleAction
     | SetMessagesAction
     | SetLocaleAction
     | SetErrorAction;
@@ -179,6 +193,12 @@ export const FetchController: FC<FetchControllerProps> = ({
     children,
     ...rest
 }) => {
+    // console.log("[FetchController] render initialLocale=%O", initialLocale);
+    // console.log("[FetchController] render messages=%O", messages);
+    // console.log("[FetchController] render localeUrl=%O", localeUrl);
+    // console.log("[FetchController] render fetchOptions=%O", fetchOptions);
+    // console.log("[FetchController] render rest=%O", rest);
+
     // Abort controller for the fetch request.
     const abortController = useRef<AbortController | undefined>();
 
@@ -186,12 +206,20 @@ export const FetchController: FC<FetchControllerProps> = ({
     const [state, dispatch] = useReducer((
         state: FetchState, action: FetchAction
     ) => {
+        // console.log("[FetchController] dispatch action=%O", action);
         switch (action.type) {
 
             case 'setLocale':
                 return {
                     ...state,
                     locale: action.locale,
+                    error: undefined,
+                };
+
+            case 'setRequestedLocale':
+                return {
+                    ...state,
+                    requestedLocale: action.locale,
                     error: undefined,
                 };
 
@@ -226,31 +254,47 @@ export const FetchController: FC<FetchControllerProps> = ({
         error: undefined,
         messages: { ...messages }
     } as FetchState);
-
+    // console.log("[FetchController] current state %O", state);
 
     // The callback used by the user to change the locale.
     const setLocale = useCallback((locale: string) => {
+        // console.log("[FetchController] setLocale=%O", locale);
+
+        if (state.locale === locale) {
+            // console.log("[FetchController] locale is already set");
+            return;
+        }
+
         // If a fetch request is in progress, then abort it.
         if (abortController.current) {
             abortController.current.abort();
             abortController.current = undefined;
+            // console.log("[FetchController] previous request aborted");
         }
 
         // If the locale does exist in the messages, then change it.
-        if (messages[locale]) {
+        if (state.messages.hasOwnProperty(locale)) {
+            // console.log("[FetchController] locale found in cache.");
             dispatch({
                 type: 'setLocale',
                 locale,
             });
+            return;
         }
+        // console.log("[FetchController] locale not found in cache.");
 
         // We need to request this locale.
         const url = typeof localeUrl === 'function'
             ? localeUrl(locale)
             : `${localeUrl}/${locale}.json`;
+        // console.log("[FetchController] will request from %O", url);
+        dispatch({ type: 'setRequestedLocale', locale, });
+
+        // Issue the request.
         fetch(
             url, fetchOptions
         ).then((response) => {
+            // console.log("[FetchController] message received %O", response);
             if (response.ok) {
                 return response.json();
             } else {
@@ -261,6 +305,7 @@ export const FetchController: FC<FetchControllerProps> = ({
                 });
             }
         }).then((messages) => {
+            // console.log("[FetchController] got json %O", messages);
             if (messages) {
                 dispatch({ type: 'setMessages', messages, });
             } else {
@@ -278,11 +323,13 @@ export const FetchController: FC<FetchControllerProps> = ({
                 });
             }
         });
-    }, [messages, fetchOptions, localeUrl]);
+    }, [state.messages, fetchOptions, localeUrl, state.locale]);
 
 
     // Executed at mount time.
     useEffect(() => {
+        // console.log("[FetchController] initial render");
+
         // Load initial locale.
         if (initialLocale === 'browser') {
             setLocale(navigator.language);
@@ -292,25 +339,36 @@ export const FetchController: FC<FetchControllerProps> = ({
 
         // Executed at unmount time.
         return () => {
+            // console.log("[FetchController] unmounting...");
+
             // If a fetch request is in progress, then abort it.
             if (abortController.current) {
                 abortController.current.abort();
                 abortController.current = undefined;
+                // console.log("[FetchController] a pending request was aborted");
             }
         }
     }, []);
 
 
     // The value for react-intl context.
-    const value: IntlShape | undefined = useMemo(() => (
-        state.locale
-            ? createIntl({
-                locale: state.locale,
-                messages: messages[state.locale],
-                ...rest,
-            }, createIntlCache())
-            : undefined
-    ), [state.locale, messages]);
+    const value: IntlShape | undefined = useMemo(() => {
+        if (!state.locale) {
+            // console.log("[FetchController] no locale, no intl");
+            return undefined;
+        }
+        const messages = state.messages[state.locale];
+        // console.log(
+        //     "[FetchController] creating intl for %O, %O",
+        //     state.locale, messages
+        // );
+        return createIntl({
+            locale: state.locale,
+            messages,
+            ...rest,
+        }, createIntlCache());
+    }, [state.locale, state.messages]);
+    // console.log("[FetchController] Intl value is now %O", value);
 
     // Only render the children if there is a locale.
     if (!state.locale || !value) {
