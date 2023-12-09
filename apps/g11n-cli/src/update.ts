@@ -34,200 +34,106 @@ const idKey = '__id__';
 
 
 /**
- * Implementation of the update command.
+ * The function is used to perform the update command.
+ *
+ * @param inPath - The source code path.
+ * @param outPath - The language files path.
+ * @param extra - The extra files to include.
+ * @param cmdObj - The command options.
  */
-export const updateCommand = () => {
-    const command = new Command('update');
-    command
-        .description('update translation files')
-        .argument('<source-dir>', 'the source code path')
-        .argument('<lang-dir>', 'the language files path')
-        .argument('<extra...>')
-        .option(
-            '--source-ext <ext1,ext2,ext3>',
-            "Extensions to include. Used to construct the glob pattern for " +
-            "locating source files.",
-            "ts,tsx,js,jsx"
-        )
-        .option(
-            '--id-interpolation-pattern <pattern>',
-            "If certain message descriptors don't have id, this \`pattern\` " +
-            "will be used to automatically generate IDs for them. " +
-            "Default to \`[sha512:contenthash:base64:6]\` where \`contenthash\` " +
-            "is the hash of \`defaultMessage\` and \`description\`. " +
-            "See https://github.com/webpack/loader-utils#interpolatename for " +
-            "sample patterns",
-            '[sha512:contenthash:base64:6]'
-        )
-        .option(
-            '--extract-source-location',
-            "Whether the metadata about the location of the message in the " +
-            "source file should be extracted. " +
-            "If \`true\`, then \`file\`, \`start\`, and \`end\` fields will " +
-            "exist for each extracted message descriptors.",
-            false
-        )
-        .option(
-            '--remove-default-message',
-            'Remove `defaultMessage` field in generated file after extraction',
-            false
-        )
-        .option(
-            '--additional-component-names <comma,separated,names>',
-            "Additional component names to extract messages from, e.g: " +
-            "`FormattedFooBarMessage`.\n" +
-            "**NOTE**: By default we check for the fact that `FormattedMessage` " +
-            "is imported from `moduleSourceName` to make sure variable alias " +
-            "works. This option does not do that so it's less safe.",
-            (val: string) => val.split(',')
-        )
-        .option(
-            '--additional-function-names <comma,separated,names>',
-            "Additional function names to extract messages from, e.g: `$t`.",
-            (val: string) => val.split(',')
-        )
-        .option(
-            '--ignore <files...>',
-            "List of glob paths to **not** extract translations from. " +
-            "See https://www.npmjs.com/package/fast-glob for supported " +
-            "patterns."
-        )
-        .option(
-            '--throws',
-            "Whether to throw an exception when we fail to process any " +
-            "file in the batch.",
-            false
-        )
-        .option(
-            '--pragma <pragma>',
-            "parse specific additional custom pragma. This allows you to tag " +
-            "certain file with metadata such as `project`. " +
-            "For example with this file:\n" +
-            "```\n" +
-            "// @intl-meta project:my-custom-project\n" +
-            "import {FormattedMessage} from 'react-intl';\n" +
-            "\n" +
-            '<FormattedMessage defaultMessage="foo" id="bar" />;\n' +
-            "```\n" +
-            "and with option `{pragma: \"intl-meta\"}`, we'll parse out " +
-            "`// @intl-meta project:my-custom-project` into " +
-            "`{project: 'my-custom-project'}\` in the result file."
-        )
-        .option(
-            '--preserve-whitespace',
-            'Whether to preserve whitespace and newlines.',
-            false
-        )
-        .option(
-            '--flatten',
-            "Whether to hoist selectors & flatten sentences as much as " +
-            "possible. E.g: \"I have {count, plural, one{a dog} " +
-            "other{many dogs}}\" becomes \"{count, plural, one{I have a " +
-            "dog} other{I have many dogs}}\".The goal is to provide as many " +
-            "full sentences as possible since fragmented sentences are not " +
-            "translator-friendly.",
-            false
-        )
-        .option(
-            '--extracted-file-name <file>',
-            "The name of the intermediate file with detailed information " +
-            "about the messages, including all their translations.",
-            "extracted-messages.json"
-        )
-        .action(async (inPath: string, outPath: string, extra: string[], {
-            sourceExt,
-            extractedFileName,
-            ...cmdObj
-        }: UpdateCLIOptions) => {
-            // Will be populated by the format function.
-            const locales: string[] = [];
+export async function performUpdate(
+    inPath: string, outPath: string, extra: string[],
+    {
+        sourceExt,
+        extractedFileName,
+        ...cmdObj
+    }: UpdateCLIOptions
+): Promise<boolean> {
+    // Will be populated by the format function.
+    const locales: string[] = [];
 
-            // Our custom formatter.
-            const formatter: Formatter = {
-                serialize: (msgs) => JSON.stringify(msgs, null, 2),
-                format: (msgs) => format(
-                    outPath, msgs, locales, extractedFileName
-                ),
-                compile: undefined,
+    // Our custom formatter.
+    const formatter: Formatter = {
+        serialize: (msgs) => JSON.stringify(msgs, null, 2),
+        format: (msgs) => format(
+            outPath, msgs, locales, extractedFileName
+        ),
+        compile: undefined,
 
-                // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/json-stable-stringify/index.d.ts
-                // compareMessages?: (a: Element, b: Element) => number;
-            };
+        // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/json-stable-stringify/index.d.ts
+        // compareMessages?: (a: Element, b: Element) => number;
+    };
 
-            // Get the list of files to extract the data from.
-            // fast-glob always uses forward slashes, so we need to replace
-            // backslashes with forward slashes in the pattern for Windows
-            // compatibility.
-            const pattern = join(
-                inPath, "**", `*.{${sourceExt}}`
-            ).replace(/\\/g, "/");
-            const files = globSync(pattern, {
-                ignore: cmdObj.ignore,
-            });
-            if (files.length === 0) {
-                console.error(
-                    `No files found for pattern ${pattern}; ignored: %O.`,
-                    cmdObj.ignore
+    // Get the list of files to extract the data from.
+    // fast-glob always uses forward slashes, so we need to replace
+    // backslashes with forward slashes in the pattern for Windows
+    // compatibility.
+    const pattern = join(
+        inPath, "**", `*.{${sourceExt}}`
+    ).replace(/\\/g, "/");
+    const files = globSync(pattern, { ignore: cmdObj.ignore, });
+    if (files.length === 0) {
+        console.error(
+            `No files found for pattern ${pattern}; ignored: %O.`,
+            cmdObj.ignore
+        );
+        return false;
+    }
+    // console.log(`Extracting messages from ${files.length} files...`)
+
+    // Compute the output file path.
+    const outFile = join(outPath, extractedFileName);
+    // console.log(`Writing messages to ${outFile}...`);
+
+    // Collect all files into a single one.
+    await extractAndWrite(files, {
+        outFile: outFile,
+        idInterpolationPattern: (
+            cmdObj.idInterpolationPattern ||
+            '[sha1:contenthash:base64:6]'
+        ),
+        extractSourceLocation: cmdObj.extractSourceLocation,
+        removeDefaultMessage: cmdObj.removeDefaultMessage,
+        additionalComponentNames: cmdObj.additionalComponentNames,
+        additionalFunctionNames: cmdObj.additionalFunctionNames,
+        throws: cmdObj.throws,
+        pragma: cmdObj.pragma,
+        format: formatter,
+        readFromStdin: false,
+        preserveWhitespace: cmdObj.preserveWhitespace,
+        flatten: cmdObj.flatten,
+    });
+
+    // Collect extra sources.
+    let extraSources: string[] = [];
+    extra.forEach((file) => {
+        if (existsSync(file)) {
+            extraSources.push(file);
+        } else {
+            const foundSources = globSync(file);
+            if (foundSources.length === 0) {
+                console.warn(
+                    `No files found for pattern ${file}.`
                 );
-                process.exit(1);
             }
-            // console.log(`Extracting messages from ${files.length} files...`)
+            extraSources = extraSources.concat(foundSources);
+        }
+    });
 
-            // Compute the output file path.
-            const outFile = join(outPath, extractedFileName);
+    // Compile the extracted messages into separate JSON files.
+    // console.log(`Compiling messages from %s...`, outFile);
+    await Promise.all(locales.map(async (locale) => {
+        // console.log(`Compiling ${locale}...`);
+        formatter.compile = (msgs) => compile(msgs, locale);
+        await compileAndWrite([outFile, ...extraSources], {
+            outFile: join(outPath, `${locale}.json`),
+            ast: false,
+            skipErrors: false,
+            format: formatter,
+        })
+    }));
 
-            // Collect all files into a single one.
-            await extractAndWrite(files, {
-                outFile: outFile,
-                idInterpolationPattern: (
-                    cmdObj.idInterpolationPattern ||
-                    '[sha1:contenthash:base64:6]'
-                ),
-                extractSourceLocation: cmdObj.extractSourceLocation,
-                removeDefaultMessage: cmdObj.removeDefaultMessage,
-                additionalComponentNames: cmdObj.additionalComponentNames,
-                additionalFunctionNames: cmdObj.additionalFunctionNames,
-                throws: cmdObj.throws,
-                pragma: cmdObj.pragma,
-                format: formatter,
-                readFromStdin: false,
-                preserveWhitespace: cmdObj.preserveWhitespace,
-                flatten: cmdObj.flatten,
-            });
-
-            // Collect extra sources.
-            let extraSources: string[] = [];
-            extra.forEach((file) => {
-                if (existsSync(file)) {
-                    extraSources.push(file);
-                } else {
-                    const foundSources = globSync(file);
-                    if (foundSources.length === 0) {
-                        console.warn(
-                            `No files found for pattern ${file}.`
-                        );
-                    }
-                    extraSources = extraSources.concat(foundSources);
-                }
-            });
-
-            // Compile the extracted messages into separate JSON files.
-            // console.log(`Compiling messages from %s...`, outFile);
-            await Promise.all(locales.map(async (locale) => {
-                // console.log(`Compiling ${locale}...`);
-                formatter.compile = (msgs) => compile(msgs, locale);
-                await compileAndWrite([outFile, ...extraSources], {
-                    outFile: join(outPath, `${locale}.json`),
-                    ast: false,
-                    skipErrors: false,
-                    format: formatter,
-                })
-            }));
-
-            // console.log("Done.");
-            process.exit(0);
-        });
-    return command;
+    return true;
 }
 
 
@@ -241,7 +147,7 @@ export const updateCommand = () => {
  *  does not exist.
  * @returns The parsed content of the file.
  */
-function readJsonOrDefault(
+export function readJsonOrDefault(
     file: string,
     defaultValue = {}
 ): Record<string, any> {
@@ -277,6 +183,13 @@ export interface G11nMessageDescriptor extends MessageDescriptor {
  *
  * The result is a tree of objects consisting of nodes and leaves, with the
  * leaves being the message descriptors and having a `__id__` key.
+ *
+ * @param langPath - The path to the language files (will be scanned for
+ *  JSON locale files).
+ * @param msgs - The messages extracted from source code.
+ * @param locales - The detected locales will be deposited here.
+ * @param extractedFileName - The name of the intermediate file with detailed
+ *  information about the messages, including all their translations.
  */
 export function format(
     langPath: string,
@@ -380,8 +293,10 @@ export function format(
  *
  * @returns The flattened object.
  */
-function flatten(
-    obj: any, result: Record<string, MessageDescriptor> = {}, prefix = ''
+export function flatten(
+    obj: any,
+    result: Record<string, MessageDescriptor> = {},
+    prefix = ''
 ) {
     if (typeof obj !== 'object') {
         throw new Error('flatten() called on non-object');
@@ -406,11 +321,12 @@ function flatten(
  * @returns The compiled messages.
  */
 export function compile(
-    msgs: Record<string, MessageDescriptor>,
+    msgs: Record<string, MessageDescriptor|any>,
     locale: string
 ) {
     // console.log(`compile called for ${locale}...`);
     const result = {};
+
     // Go through leafs only.
     for (const [key, value] of Object.entries(flatten(msgs))) {
         // For each leaf key (e.g. "foo.bar.baz") the value is:
@@ -421,4 +337,122 @@ export function compile(
         result[key] = value[locale] || value.defaultMessage || value.id || key;
     }
     return result;
+}
+
+
+/**
+ * Implementation of the update command.
+ */
+export const updateCommand = () => {
+    const command = new Command('update');
+    command
+        .description('update translation files')
+        .argument('<source-dir>', 'the source code path')
+        .argument('<lang-dir>', 'the language files path')
+        .argument('<extra...>')
+        .option(
+            '--source-ext <ext1,ext2,ext3>',
+            "Extensions to include. Used to construct the glob pattern for " +
+            "locating source files.",
+            "ts,tsx,js,jsx"
+        )
+        .option(
+            '--id-interpolation-pattern <pattern>',
+            "If certain message descriptors don't have id, this \`pattern\` " +
+            "will be used to automatically generate IDs for them. " +
+            "Default to \`[sha512:contenthash:base64:6]\` where \`contenthash\` " +
+            "is the hash of \`defaultMessage\` and \`description\`. " +
+            "See https://github.com/webpack/loader-utils#interpolatename for " +
+            "sample patterns",
+            '[sha512:contenthash:base64:6]'
+        )
+        .option(
+            '--extract-source-location',
+            "Whether the metadata about the location of the message in the " +
+            "source file should be extracted. " +
+            "If \`true\`, then \`file\`, \`start\`, and \`end\` fields will " +
+            "exist for each extracted message descriptors.",
+            false
+        )
+        .option(
+            '--remove-default-message',
+            'Remove `defaultMessage` field in generated file after extraction',
+            false
+        )
+        .option(
+            '--additional-component-names <comma,separated,names>',
+            "Additional component names to extract messages from, e.g: " +
+            "`FormattedFooBarMessage`.\n" +
+            "**NOTE**: By default we check for the fact that `FormattedMessage` " +
+            "is imported from `moduleSourceName` to make sure variable alias " +
+            "works. This option does not do that so it's less safe.",
+            (val: string) => val.split(',')
+        )
+        .option(
+            '--additional-function-names <comma,separated,names>',
+            "Additional function names to extract messages from, e.g: `$t`.",
+            (val: string) => val.split(',')
+        )
+        .option(
+            '--ignore <files...>',
+            "List of glob paths to **not** extract translations from. " +
+            "See https://www.npmjs.com/package/fast-glob for supported " +
+            "patterns."
+        )
+        .option(
+            '--throws',
+            "Whether to throw an exception when we fail to process any " +
+            "file in the batch.",
+            false
+        )
+        .option(
+            '--pragma <pragma>',
+            "parse specific additional custom pragma. This allows you to tag " +
+            "certain file with metadata such as `project`. " +
+            "For example with this file:\n" +
+            "```\n" +
+            "// @intl-meta project:my-custom-project\n" +
+            "import {FormattedMessage} from 'react-intl';\n" +
+            "\n" +
+            '<FormattedMessage defaultMessage="foo" id="bar" />;\n' +
+            "```\n" +
+            "and with option `{pragma: \"intl-meta\"}`, we'll parse out " +
+            "`// @intl-meta project:my-custom-project` into " +
+            "`{project: 'my-custom-project'}\` in the result file."
+        )
+        .option(
+            '--preserve-whitespace',
+            'Whether to preserve whitespace and newlines.',
+            false
+        )
+        .option(
+            '--flatten',
+            "Whether to hoist selectors & flatten sentences as much as " +
+            "possible. E.g: \"I have {count, plural, one{a dog} " +
+            "other{many dogs}}\" becomes \"{count, plural, one{I have a " +
+            "dog} other{I have many dogs}}\".The goal is to provide as many " +
+            "full sentences as possible since fragmented sentences are not " +
+            "translator-friendly.",
+            false
+        )
+        .option(
+            '--extracted-file-name <file>',
+            "The name of the intermediate file with detailed information " +
+            "about the messages, including all their translations.",
+            "extracted-messages.json"
+        )
+        .action(async (
+            inPath: string,
+            outPath: string,
+            extra: string[],
+            cmdObj: UpdateCLIOptions
+        ) => {
+            if (await performUpdate(inPath, outPath, extra, cmdObj)) {
+                // console.log("Done.");
+                process.exit(0);
+            } else {
+                process.exit(1);
+            }
+        });
+    return command;
 }
