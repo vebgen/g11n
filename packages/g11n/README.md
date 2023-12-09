@@ -13,9 +13,11 @@ This library fills two gaps in the existing solutions:
   from your code, merges them with existing translations and generates
   the final translation files, all in one step; you can also point the
   script to dependencies that have similar translations and it will
-  merge them with your translations;
+  merge them with your translations (the
+  [@vebgen/g11n-cli](https://www.npmjs.com/package/@vebgen/g11n-cli) package);
 - it provides for a way to retrieve the translations from the server
-  and use them in the client through a custom provider.
+  and use them in the client through a custom provider (the
+  [@vebgen/g11n](https://www.npmjs.com/package/@vebgen/g11n) package).
 
 To use this library in your project, install it using your favorite
 package manager:
