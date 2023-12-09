@@ -5,7 +5,7 @@ import { updateCommand } from "./update";
 export const program = new Command();
 program
     .name('g11n-cli')
-    .version('0.0.11')
+    .version('0.0.12')
     .description('Manage globalization resources')
 
 program.addCommand(updateCommand());
