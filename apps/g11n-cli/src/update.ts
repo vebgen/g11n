@@ -358,10 +358,10 @@ export const updateCommand = () => {
         )
         .option(
             '--id-interpolation-pattern <pattern>',
-            "If certain message descriptors don't have id, this \`pattern\` " +
+            "If certain message descriptors don't have id, this `pattern` " +
             "will be used to automatically generate IDs for them. " +
-            "Default to \`[sha512:contenthash:base64:6]\` where \`contenthash\` " +
-            "is the hash of \`defaultMessage\` and \`description\`. " +
+            "Default to `[sha512:contenthash:base64:6]` where `contenthash` " +
+            "is the hash of `defaultMessage` and `description`. " +
             "See https://github.com/webpack/loader-utils#interpolatename for " +
             "sample patterns",
             '[sha512:contenthash:base64:6]'
@@ -370,7 +370,7 @@ export const updateCommand = () => {
             '--extract-source-location',
             "Whether the metadata about the location of the message in the " +
             "source file should be extracted. " +
-            "If \`true\`, then \`file\`, \`start\`, and \`end\` fields will " +
+            "If `true`, then `file`, `start`, and `end` fields will " +
             "exist for each extracted message descriptors.",
             false
         )
@@ -418,7 +418,7 @@ export const updateCommand = () => {
             "```\n" +
             "and with option `{pragma: \"intl-meta\"}`, we'll parse out " +
             "`// @intl-meta project:my-custom-project` into " +
-            "`{project: 'my-custom-project'}\` in the result file."
+            "`{project: 'my-custom-project'}` in the result file."
         )
         .option(
             '--preserve-whitespace',

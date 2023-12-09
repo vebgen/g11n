@@ -5,7 +5,7 @@ Monorepo for typescript packages related to globalization.
 Check out individual package READMEs for more information:
 
 - [@vebgen/g11n](./packages/g11n/README.md)
-
+- [@vebgen/g11n-cli](./apps/g11n-cli/README.md)
 
 ## Folder Structure
 
@@ -162,4 +162,4 @@ Configuration for [Nx](https://nx.dev/reference/nx-json):
   project's `project.json`
 - `generators`:
   - `@nx/react`:
-  - `@nx/js`: 
+  - `@nx/js`:

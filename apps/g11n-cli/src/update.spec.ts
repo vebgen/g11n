@@ -1,6 +1,6 @@
 import {
     mkdtempSync, existsSync, rmSync, writeFileSync,
-    readFileSync, mkdirSync, statSync, constants
+    readFileSync, mkdirSync
 } from "fs";
 import { join } from "path";
 import { tmpdir } from "os";
