@@ -10,8 +10,13 @@
     },
     "targetDefaults": {
         "build": {
-            "dependsOn": ["^build"],
-            "inputs": ["production", "^production"],
+            "dependsOn": [
+                "^build"
+            ],
+            "inputs": [
+                "production",
+                "^production"
+            ],
             "cache": true
         },
         "lint": {
@@ -50,7 +55,10 @@
         }
     },
     "namedInputs": {
-        "default": ["{projectRoot}/**/*", "sharedGlobals"],
+        "default": [
+            "{projectRoot}/**/*",
+            "sharedGlobals"
+        ],
         "production": [
             "default",
             "!{projectRoot}/.eslintrc.json",
@@ -62,7 +70,9 @@
             "!{projectRoot}/tsconfig.storybook.json",
             "!{projectRoot}/src/test-setup.[jt]s"
         ],
-        "sharedGlobals": ["{workspaceRoot}/babel.config.json"]
+        "sharedGlobals": [
+            "{workspaceRoot}/babel.config.json"
+        ]
     },
     "workspaceLayout": {
         "appsDir": "apps",
@@ -105,7 +115,9 @@
     "tasksRunnerOptions": {
         "default": {
             "options": {
-                "cacheableOperations": ["build-storybook"]
+                "cacheableOperations": [
+                    "build-storybook"
+                ]
             }
         }
     }
