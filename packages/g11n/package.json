@@ -1,6 +1,6 @@
 {
     "name": "@vebgen/g11n",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "type": "module",
     "private": false,
     "repository": {
@@ -21,7 +21,8 @@
         "translation"
     ],
     "publishConfig": {
-        "access": "public"
+        "access": "public",
+        "directory": "../../dist/packages/g11n"
     },
     "peerDependencies": {
         "react": "18.2.0",
