@@ -1,8 +1,9 @@
 import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
-import { SimpleController, SimpleControllerProps } from "./controller";
 import { FormattedMessage } from 'react-intl';
+
 import { useG11n } from '..';
+import { SimpleController, SimpleControllerProps } from "./controller";
 
 
 // The properties passed to each story.

@@ -34,10 +34,7 @@
                 "external": "all",
                 "rollupConfig": "packages/g11n/bundle-rollup.cjs",
                 "compiler": "babel",
-                "format": [
-                    "esm",
-                    "cjs"
-                ],
+                "format": ["esm", "cjs"],
                 "assets": [
                     {
                         "glob": "packages/g11n/README.md",
