@@ -349,7 +349,7 @@ export const updateCommand = () => {
         .description('update translation files')
         .argument('<source-dir>', 'the source code path')
         .argument('<lang-dir>', 'the language files path')
-        .argument('<extra...>')
+        .argument('[extra...]')
         .option(
             '--source-ext <ext1,ext2,ext3>',
             "Extensions to include. Used to construct the glob pattern for " +
