@@ -302,7 +302,7 @@ importers:
   packages/g11n:
     dependencies:
       core-js:
-        specifier: ^3.6.5
+        specifier: ^3.34.0
         version: 3.34.0
       react:
         specifier: 18.2.0
