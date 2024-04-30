@@ -41,7 +41,7 @@ translations from a previous run.
 - ...use translation files with other libraries? The generated JSON files
   are simple `"explicit.id.delimited.by.dots": "translation"` pairs. You
   can use them with any library that supports this format. The command
-  line allows you tu customize the patterns that are used to extract
+  line allows you to customize the patterns that are used to extract
   strings from source code.
 - ...use translation files from other sources? You will have to create a
   `extracted-messages.json` yourself and point `g11n-cli` to it using the

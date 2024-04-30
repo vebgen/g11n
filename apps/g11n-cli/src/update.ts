@@ -1,11 +1,11 @@
 import { Command } from 'commander';
-import { extractAndWrite, compileAndWrite } from '@formatjs/cli-lib';
+import { compileAndWrite } from '@formatjs/cli-lib';
 import { sync as globSync } from 'fast-glob';
 import type { ExtractCLIOptions, MessageDescriptor } from '@formatjs/cli-lib';
 import type { Formatter } from '@formatjs/cli-lib/src/formatters';
 import { join, basename } from 'path';
 import { readFileSync, existsSync } from "fs";
-
+import { extractAndWrite } from './formatjs-cli-lib/extract';
 
 /**
  * The options for the update command.
@@ -99,7 +99,6 @@ export async function performUpdate(
         throws: cmdObj.throws,
         pragma: cmdObj.pragma,
         format: formatter,
-        readFromStdin: false,
         preserveWhitespace: cmdObj.preserveWhitespace,
         flatten: cmdObj.flatten,
     });
