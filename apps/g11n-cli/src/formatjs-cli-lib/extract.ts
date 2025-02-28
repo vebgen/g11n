@@ -11,8 +11,8 @@ import {
     MessageDescriptor,
     Opts,
     interpolateName,
-    transformWithTs,
 } from '@formatjs/ts-transformer';
+import { transformWithTs } from './transform';
 import { outputFile, readFile } from 'fs-extra';
 import { parse } from '@formatjs/icu-messageformat-parser';
 import { printAST } from '@formatjs/icu-messageformat-parser/printer';
@@ -112,7 +112,7 @@ export interface ExtractedMessageDescriptor extends MessageDescriptor {
     meta?: Record<string, string>
 }
 /**
- * Invoid TypeScript module transpilation with our TS transformer
+ * Invoke TypeScript module transpilation with our TS transformer
  * @param opts Formatjs TS Transformer opt
  * @param fn filename
  */
@@ -158,7 +158,7 @@ export function parseScript(opts: Opts, fn?: string) {
     }
 }
 
-function calculateLineColFromOffset(
+export function calculateLineColFromOffset(
     text: string,
     start?: number
 ): Pick<ExtractedMessageDescriptor, 'line' | 'col'> {
@@ -171,7 +171,7 @@ function calculateLineColFromOffset(
     return { line: lines.length, col: lastLine.length }
 }
 
-async function processFile(
+export async function processFile(
     source: string,
     fn: string,
     { idInterpolationPattern, ...opts }: Opts & { idInterpolationPattern?: string }
@@ -238,7 +238,7 @@ async function processFile(
     console.debug('Processing %s using typescript extractor', fn)
     scriptParseFn(source)
 
-    console.debug('Done extracting %s messages: %s', fn, messages)
+    console.debug('Done extracting %s messages: %O', fn, messages)
     if (meta) {
         console.debug('Extracted meta:', meta)
         messages.forEach(m => (m.meta = meta))
