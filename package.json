@@ -1,6 +1,6 @@
 {
   "name": "@vebgen/g11n",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Monorepo for packages related to globalization.",
   "license": "MIT",
   "private": true,

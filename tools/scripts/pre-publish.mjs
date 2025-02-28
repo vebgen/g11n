@@ -24,6 +24,7 @@ const validVersion = /^(\d+)\.(\d+)\.(\d+)$/;
 
 const args = process.argv.slice(2);
 let version = '';
+let tag = '';
 if (args.length) {
     // Make sure that the version is valid
     if (!validVersion.test(version)) {
@@ -50,12 +51,17 @@ for (const node of Object.values(graph.nodes)) {
             const patch = parseInt(match[3]);
             json.version = `${major}.${minor}.${patch + 1}`;
         }
-        writeFileSync(prjPath + `package.json`, JSON.stringify(json, null, 2));
+        if (tag === '') {
+            tag = json.version;
+        }
+        writeFileSync(prjPath + `/package.json`, JSON.stringify(json, null, 2));
         console.log(chalk.green(`Updated version in ${node.name} to ${json.version}`));
     }
 }
 
-execSync(`git add .`);
-execSync(`git commit -m "Bump version to ${version}"`);
-execSync(`git tag -a v${version} -m "Version ${version}"`);
-execSync(`git push --tag`);
+if (tag !== '') {
+    execSync(`git add .`);
+    execSync(`git commit -m "Bump version to ${tag}"`);
+    execSync(`git tag -a v${tag} -m "Version ${tag}"`);
+    execSync(`git push --tag`);
+}
