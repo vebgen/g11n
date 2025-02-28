@@ -1,11 +1,11 @@
 import { Command } from 'commander';
 import { compileAndWrite } from '@formatjs/cli-lib';
 import { sync as globSync } from 'fast-glob';
-import type { ExtractCLIOptions, MessageDescriptor } from '@formatjs/cli-lib';
+import type { MessageDescriptor } from '@formatjs/cli-lib';
 import type { Formatter } from '@formatjs/cli-lib/src/formatters';
 import { join, basename } from 'path';
 import { readFileSync, existsSync } from "fs";
-import { extractAndWrite } from './formatjs-cli-lib/extract';
+import { extractAndWrite, ExtractCLIOptions } from './formatjs-cli-lib/extract';
 
 /**
  * The options for the update command.
@@ -101,6 +101,7 @@ export async function performUpdate(
         format: formatter,
         preserveWhitespace: cmdObj.preserveWhitespace,
         flatten: cmdObj.flatten,
+        verbose: cmdObj.verbose,
     });
 
     // Collect extra sources.
@@ -402,6 +403,11 @@ export const updateCommand = () => {
             '--throws',
             "Whether to throw an exception when we fail to process any " +
             "file in the batch.",
+            false
+        )
+        .option(
+            '--verbose',
+            "Whether to print detailed information about the extraction.",
             false
         )
         .option(

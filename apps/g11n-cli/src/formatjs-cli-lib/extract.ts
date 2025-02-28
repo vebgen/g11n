@@ -6,7 +6,7 @@
  */
 
 import stringify from 'json-stable-stringify';
-import type { Comparator } from 'json-stable-stringify'
+import type { Comparator } from 'json-stable-stringify';
 import {
     MessageDescriptor,
     Opts,
@@ -20,68 +20,64 @@ import { hoistSelectors } from '@formatjs/icu-messageformat-parser/manipulator';
 import ts from 'typescript';
 
 export type FormatFn<T = Record<string, MessageDescriptor>> = (
-    msgs: Record<string, MessageDescriptor>
-) => T
+    msgs: Record<string, MessageDescriptor>,
+) => T;
 
 export type CompileFn<T = Record<string, MessageDescriptor>> = (
-    msgs: T
-) => Record<string, string>
+    msgs: T,
+) => Record<string, string>;
 
 export type SerializeFn<T = Record<string, MessageDescriptor>> = (
-    msgs: T
-) => string
+    msgs: T,
+) => string;
 
-export const format: FormatFn = msgs => msgs
+export const format: FormatFn = (msgs) => msgs;
 
-export const compile: CompileFn = msgs => {
-    const results: Record<string, string> = {}
+export const compile: CompileFn = (msgs) => {
+    const results: Record<string, string> = {};
     for (const k in msgs) {
-        results[k] = msgs[k].defaultMessage!
+        results[k] = msgs[k].defaultMessage!;
     }
-    return results
-}
-
+    return results;
+};
 
 export interface Formatter {
-    serialize?: SerializeFn
-    format: FormatFn
-    compile: CompileFn
-    compareMessages?: Comparator
+    serialize?: SerializeFn;
+    format: FormatFn;
+    compile: CompileFn;
+    compareMessages?: Comparator;
 }
-
 
 export interface ExtractionResult<M = Record<string, string>> {
     /**
      * List of extracted messages
      */
-    messages: MessageDescriptor[]
+    messages: MessageDescriptor[];
     /**
      * Metadata extracted w/ `pragma`
      */
-    meta?: M
+    meta?: M;
 }
-
 
 export type ExtractOpts = Opts & {
     /**
      * Whether to throw an error if we had any issues with
      * 1 of the source files
      */
-    throws?: boolean
+    throws?: boolean;
     /**
      * Message ID interpolation pattern
      */
-    idInterpolationPattern?: string
+    idInterpolationPattern?: string;
     /**
      * Path to a formatter file that controls the shape of JSON file from `outFile`.
      */
-    format?: string | Formatter
+    format?: string | Formatter;
     /**
      * Whether to hoist selectors & flatten sentences
      */
-    flatten?: boolean
-} & Pick<Opts, 'onMsgExtracted' | 'onMetaExtracted'>
-
+    flatten?: boolean;
+} & Pick<Opts, 'onMsgExtracted' | 'onMetaExtracted'>;
 
 export type ExtractCLIOptions = Omit<
     ExtractOpts,
@@ -90,26 +86,30 @@ export type ExtractCLIOptions = Omit<
     /**
      * Output File
      */
-    outFile?: string
+    outFile?: string;
     /**
      * Ignore file glob pattern
      */
-    ignore?: string[]
-}
+    ignore?: string[];
+    /**
+     * Print debug information.
+     */
+    verbose?: boolean;
+};
 
 export interface ExtractedMessageDescriptor extends MessageDescriptor {
     /**
      * Line number
      */
-    line?: number
+    line?: number;
     /**
      * Column number
      */
-    col?: number
+    col?: number;
     /**
      * Metadata extracted from pragma
      */
-    meta?: Record<string, string>
+    meta?: Record<string, string>;
 }
 /**
  * Invoke TypeScript module transpilation with our TS transformer
@@ -118,9 +118,10 @@ export interface ExtractedMessageDescriptor extends MessageDescriptor {
  */
 export function parseScript(opts: Opts, fn?: string) {
     return (source: string) => {
-        let output
+        let output;
         try {
-            console.debug('Using TS compiler to process file', fn)
+            opts.verbose &&
+                console.debug('Using TS compiler to process file', fn);
             output = ts.transpileModule(source, {
                 compilerOptions: {
                     allowJs: true,
@@ -133,54 +134,57 @@ export function parseScript(opts: Opts, fn?: string) {
                 transformers: {
                     before: [transformWithTs(ts, opts)],
                 },
-            })
+            });
         } catch (e) {
             if (e instanceof Error) {
                 e.message = `Error processing file ${fn}
-  ${e.message || ''}`
+  ${e.message || ''}`;
             }
-            throw e
+            throw e;
         }
         if (output.diagnostics) {
             const errs = output.diagnostics.filter(
-                d => d.category === ts.DiagnosticCategory.Error
-            )
+                (d) => d.category === ts.DiagnosticCategory.Error,
+            );
             if (errs.length) {
                 throw new Error(
                     ts.formatDiagnosticsWithColorAndContext(errs, {
-                        getCanonicalFileName: fileName => fileName,
+                        getCanonicalFileName: (fileName) => fileName,
                         getCurrentDirectory: () => process.cwd(),
                         getNewLine: () => ts.sys.newLine,
-                    })
-                )
+                    }),
+                );
             }
         }
-    }
+    };
 }
 
 export function calculateLineColFromOffset(
     text: string,
-    start?: number
+    start?: number,
 ): Pick<ExtractedMessageDescriptor, 'line' | 'col'> {
     if (!start) {
-        return { line: 1, col: 1 }
+        return { line: 1, col: 1 };
     }
-    const chunk = text.slice(0, start)
-    const lines = chunk.split('\n')
-    const lastLine = lines[lines.length - 1]
-    return { line: lines.length, col: lastLine.length }
+    const chunk = text.slice(0, start);
+    const lines = chunk.split('\n');
+    const lastLine = lines[lines.length - 1];
+    return { line: lines.length, col: lastLine.length };
 }
 
 export async function processFile(
     source: string,
     fn: string,
-    { idInterpolationPattern, ...opts }: Opts & { idInterpolationPattern?: string }
+    {
+        idInterpolationPattern,
+        ...opts
+    }: Opts & { idInterpolationPattern?: string },
 ) {
-    let messages: ExtractedMessageDescriptor[] = []
-    let meta: Record<string, string> | undefined
+    let messages: ExtractedMessageDescriptor[] = [];
+    let meta: Record<string, string> | undefined;
 
-    const onMsgExtracted = opts.onMsgExtracted
-    const onMetaExtracted = opts.onMetaExtracted
+    const onMsgExtracted = opts.onMsgExtracted;
+    const onMetaExtracted = opts.onMetaExtracted;
 
     opts = {
         ...opts,
@@ -190,25 +194,25 @@ export async function processFile(
         ],
         onMsgExtracted(filePath: string, msgs: MessageDescriptor[]) {
             if (opts.extractSourceLocation) {
-                msgs = msgs.map(msg => ({
+                msgs = msgs.map((msg) => ({
                     ...msg,
                     ...calculateLineColFromOffset(source, msg.start),
-                }))
+                }));
             }
-            messages = messages.concat(msgs)
+            messages = messages.concat(msgs);
 
             if (onMsgExtracted) {
-                onMsgExtracted(filePath, msgs)
+                onMsgExtracted(filePath, msgs);
             }
         },
         onMetaExtracted(filePath, m) {
-            meta = m
+            meta = m;
 
             if (onMetaExtracted) {
-                onMetaExtracted(filePath, m)
+                onMetaExtracted(filePath, m);
             }
         },
-    }
+    };
 
     if (!opts.overrideIdFn && idInterpolationPattern) {
         opts = {
@@ -222,28 +226,31 @@ export async function processFile(
                     idInterpolationPattern,
                     {
                         content: description
-                            ? `${defaultMessage}#${typeof description === 'string'
-                                ? description
-                                : stringify(description)
-                            }`
+                            ? `${defaultMessage}#${
+                                  typeof description === 'string'
+                                      ? description
+                                      : stringify(description)
+                              }`
                             : defaultMessage,
-                    }
+                    },
                 ),
-        }
+        };
     }
 
-    console.debug('Processing opts for %s: %s', fn, opts)
+    opts.verbose && console.debug('Processing opts for %s: %s', fn, opts);
 
-    const scriptParseFn = parseScript(opts, fn)
-    console.debug('Processing %s using typescript extractor', fn)
-    scriptParseFn(source)
+    const scriptParseFn = parseScript(opts, fn);
+    opts.verbose &&
+        console.debug('Processing %s using typescript extractor', fn);
+    scriptParseFn(source);
 
-    console.debug('Done extracting %s messages: %O', fn, messages)
+    opts.verbose &&
+        console.debug('Done extracting %s messages: %O', fn, messages);
     if (meta) {
-        console.debug('Extracted meta:', meta)
-        messages.forEach(m => (m.meta = meta))
+        opts.verbose && console.debug('Extracted meta:', meta);
+        messages.forEach((m) => (m.meta = meta));
     }
-    return { messages, meta }
+    return { messages, meta };
 }
 
 /**
@@ -255,88 +262,90 @@ export async function processFile(
  */
 export async function extract(
     files: readonly string[],
-    extractOpts: ExtractOpts
+    extractOpts: ExtractOpts,
 ) {
-    const { throws, flatten, ...opts } = extractOpts
-    let rawResults: Array<ExtractionResult | undefined>
+    const { throws, flatten, ...opts } = extractOpts;
+    let rawResults: Array<ExtractionResult | undefined>;
 
     rawResults = await Promise.all(
-        files.map(async fn => {
-            console.debug('Extracting file:', fn)
+        files.map(async (fn) => {
+            opts.verbose && console.debug('Extracting file:', fn);
             try {
-                const source = await readFile(fn, 'utf8')
+                const source = await readFile(fn, 'utf8');
                 return Promise.resolve(await processFile(source, fn, opts));
             } catch (e) {
                 if (throws) {
-                    throw e
+                    throw e;
                 } else {
                     console.warn(String(e));
                 }
             }
-        })
-    )
+        }),
+    );
 
     // We always pass a custom formatter.
     const formatter = opts.format as Formatter;
-    const extractionResults = rawResults.filter((r): r is ExtractionResult => !!r)
+    const extractionResults = rawResults.filter(
+        (r): r is ExtractionResult => !!r,
+    );
 
-    const extractedMessages = new Map<string, MessageDescriptor>()
+    const extractedMessages = new Map<string, MessageDescriptor>();
 
     for (const { messages } of extractionResults) {
         for (const message of messages) {
-            const { id, description, defaultMessage } = message
+            const { id, description, defaultMessage } = message;
             if (!id) {
                 const error = new Error(
                     `[FormatJS CLI] Missing message id for message:
-${JSON.stringify(message, undefined, 2)}`
-                )
+${JSON.stringify(message, undefined, 2)}`,
+                );
                 if (throws) {
-                    throw error
+                    throw error;
                 } else {
-                    console.warn(error.message)
+                    console.warn(error.message);
                 }
-                continue
+                continue;
             }
 
             if (extractedMessages.has(id)) {
-                const existing = extractedMessages.get(id)!
+                const existing = extractedMessages.get(id)!;
                 if (
-                    stringify(description) !== stringify(existing.description) ||
+                    stringify(description) !==
+                        stringify(existing.description) ||
                     defaultMessage !== existing.defaultMessage
                 ) {
                     const error = new Error(
                         `[FormatJS CLI] Duplicate message id: "${id}", but ` +
-                        'the `description` and/or `defaultMessage` are different.'
-                    )
+                            'the `description` and/or `defaultMessage` are different.',
+                    );
                     if (throws) {
-                        throw error
+                        throw error;
                     } else {
-                        console.warn(error.message)
+                        console.warn(error.message);
                     }
                 }
             }
-            extractedMessages.set(id, message)
+            extractedMessages.set(id, message);
         }
     }
-    const results: Record<string, Omit<MessageDescriptor, 'id'>> = {}
-    const messages = Array.from(extractedMessages.values())
+    const results: Record<string, Omit<MessageDescriptor, 'id'>> = {};
+    const messages = Array.from(extractedMessages.values());
     for (const { id, ...msg } of messages) {
         if (flatten && msg.defaultMessage) {
-            msg.defaultMessage = printAST(hoistSelectors(
-                parse(msg.defaultMessage)
-            ))
+            msg.defaultMessage = printAST(
+                hoistSelectors(parse(msg.defaultMessage)),
+            );
         }
-        results[id] = msg
+        results[id] = msg;
     }
     if (typeof formatter.serialize === 'function') {
-        return formatter.serialize(formatter.format(results as any))
+        return formatter.serialize(formatter.format(results as any));
     }
     return stringify(formatter.format(results as any), {
         space: 2,
         cmp: formatter.compareMessages || undefined,
-    })
+    });
 }
-
 
 /**
  * Extract strings from source files, also writes to a file.
@@ -346,10 +355,10 @@ ${JSON.stringify(message, undefined, 2)}`
  */
 export async function extractAndWrite(
     files: readonly string[],
-    extractOpts: ExtractCLIOptions
+    extractOpts: ExtractCLIOptions,
 ) {
-    const { outFile, ...opts } = extractOpts
-    const serializedResult = (await extract(files, opts)) + '\n'
+    const { outFile, ...opts } = extractOpts;
+    const serializedResult = (await extract(files, opts)) + '\n';
     console.log('Writing output file:', outFile);
     return outputFile(outFile, serializedResult);
 }

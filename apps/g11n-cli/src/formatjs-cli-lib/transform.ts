@@ -182,6 +182,10 @@ export interface Opts {
      * Whether to preserve whitespace and newlines.
      */
     preserveWhitespace?: boolean;
+    /**
+     * Wether to print verbose logs.
+     */
+    verbose?: boolean;
 }
 
 const DEFAULT_OPTS: Omit<Opts, 'program'> = {
@@ -676,11 +680,12 @@ export function extractMessagesFromCallExpression(
             if (!msgs.length) {
                 return node;
             }
-            console.debug(
-                'Multiple messages extracted from "%s": %s',
-                sf.fileName,
-                msgs,
-            );
+            opts.verbose &&
+                console.debug(
+                    'Multiple messages extracted from "%s": %s',
+                    sf.fileName,
+                    msgs,
+                );
             if (typeof onMsgExtracted === 'function') {
                 onMsgExtracted(sf.fileName, msgs);
             }
@@ -730,7 +735,12 @@ export function extractMessagesFromCallExpression(
             if (!msg) {
                 return node;
             }
-            console.debug('Message extracted from "%s": %s', sf.fileName, msg);
+            opts.verbose &&
+                console.debug(
+                    'Message extracted from "%s": %s',
+                    sf.fileName,
+                    msg,
+                );
             if (typeof onMsgExtracted === 'function') {
                 onMsgExtracted(sf.fileName, [msg]);
             }
@@ -756,14 +766,22 @@ export function extractMessagesFromCallExpression(
                 ],
             );
         } else if (ts.isStringLiteral(descriptorsObj)) {
-            const msg = {
+            const msg: MessageDescriptor = {
                 id: descriptorsObj.text,
                 defaultMessage: descriptorsObj.text,
-                file: sf.fileName,
-                start: descriptorsObj.pos,
-                end: descriptorsObj.end,
             };
-            console.debug('Message extracted from "%s": %s', sf.fileName, msg);
+            if (opts.extractSourceLocation) {
+                msg.file = sf.fileName;
+                msg.start = descriptorsObj.pos;
+                msg.end = descriptorsObj.end;
+            }
+
+            opts.verbose &&
+                console.debug(
+                    'Message extracted from "%s": %s',
+                    sf.fileName,
+                    msg,
+                );
             if (typeof onMsgExtracted === 'function') {
                 onMsgExtracted(sf.fileName, [msg]);
             }
@@ -825,14 +843,14 @@ export function transformWithTs(
     opts: Opts,
 ): typescript.TransformerFactory<typescript.SourceFile> {
     opts = { ...DEFAULT_OPTS, ...opts };
-    console.debug('Transforming options: %O', opts);
+    opts.verbose && console.debug('Transforming options: %O', opts);
     const transformFn: typescript.TransformerFactory<typescript.SourceFile> = (
         ctx,
     ) => {
         return (sf) => {
             const pragmaResult = PRAGMA_REGEX.exec(sf.text);
             if (pragmaResult) {
-                console.debug('Pragma found', pragmaResult);
+                opts.verbose && console.debug('Pragma found', pragmaResult);
                 const [, pragma, kvString] = pragmaResult;
                 if (pragma === opts.pragma) {
                     const kvs = kvString.split(' ');
@@ -841,7 +859,7 @@ export function transformWithTs(
                         const [k, v] = kv.split(':');
                         result[k] = v;
                     }
-                    console.debug('Pragma extracted', result);
+                    opts.verbose && console.debug('Pragma extracted', result);
                     if (typeof opts.onMetaExtracted === 'function') {
                         opts.onMetaExtracted(sf.fileName, result);
                     }
