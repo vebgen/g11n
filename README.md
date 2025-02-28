@@ -17,6 +17,11 @@ Check out individual package READMEs for more information:
    is not expired; create a new granular access token if it did.
 5. Create a new release in GitHub.
 6. This will trigger the CI/CD pipeline and publish the new version to npm.
+7. Check in <https://www.npmjs.com/package/@vebgen/g11n> and
+   <https://www.npmjs.com/package/@vebgen/g11n-cli> if the new version is there.
+
+You can also use `pnpm pp x.y.z` to change the version of all packages,
+commit, create the tag and push the changes.
 
 ## Folder Structure
 

@@ -1,3 +1,11 @@
+/**
+ * This is a node script that updates the version of all the projects in the workspace.
+ * It also creates a commit and a tag for the new version.
+ *
+ * Executing this script: node path/to/pre-publish.mjs {version}
+ * or: pnpm pp {version}
+ */
+
 import { execSync } from 'child_process';
 import { readFileSync, writeFileSync } from 'fs';
 import chalk from 'chalk';

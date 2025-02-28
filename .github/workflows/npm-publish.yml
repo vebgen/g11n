@@ -4,8 +4,9 @@
 name: Publish Packages
 
 on:
-    release:
-        types: [created]
+    push:
+      tags:
+        - "v*"
 
 jobs:
     publish-npm:
@@ -29,3 +30,21 @@ jobs:
             - run: pnpm -r publish --no-git-checks
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+    create-release:
+        needs: publish-npm  # Waits for npm publish to complete
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repo
+              uses: actions/checkout@v3
+
+            - name: Create GitHub Release
+              uses: softprops/action-gh-release@v1
+              with:
+                    tag_name: ${{ github.ref_name }}
+                    name: "Release ${{ github.ref_name }}"
+                    body: "The ${{ github.ref_name }} release"
+                    draft: false
+                    prerelease: false
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
