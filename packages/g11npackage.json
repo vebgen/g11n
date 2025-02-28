@@ -1,0 +1,34 @@
+{
+  "name": "@vebgen/g11n",
+  "version": "0.1.7",
+  "type": "module",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vebgen/g11n.git",
+    "directory": "packages/g11n"
+  },
+  "bugs": {
+    "url": "https://github.com/vebgen/g11n/issues"
+  },
+  "homepage": "https://github.com/vebgen/g11n",
+  "license": "MIT",
+  "keywords": [
+    "i18n",
+    "g11n",
+    "internationalization",
+    "localization",
+    "translation"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "directory": "../../dist/packages/g11n"
+  },
+  "peerDependencies": {
+    "react": "18.2.0",
+    "core-js": "^3.34.0"
+  },
+  "dependencies": {
+    "react-intl": "^6.4.3"
+  }
+}

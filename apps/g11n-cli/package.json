@@ -1,7 +1,7 @@
 {
     "name": "@vebgen/g11n-cli",
     "description": "CLI for g11n",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "main": "dist/main.js",
     "type": "module",
     "bin": {
@@ -12,6 +12,7 @@
         "@formatjs/cli-lib": "^6.2.4"
     },
     "publishConfig": {
-        "directory": "dist"
+        "directory": "dist",
+        "access": "public"
     }
 }
