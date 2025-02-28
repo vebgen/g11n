@@ -9,12 +9,14 @@ Check out individual package READMEs for more information:
 
 ## Releasing a new version
 
-1. Update the version in the `package.json` file of the package you want 
-to release.
+1. Update the version in the `package.json` file of the package you want
+   to release.
 2. Commit andd create a new tag.
 3. Push the code and the tags.
-4. Create a new release in GitHub.
-5. This will trigger the CI/CD pipeline and publish the new version to npm.
+4. Make sure that the [NPM_TOKEN](https://github.com/organizations/vebgen/settings/secrets/actions)
+   is not expired; create a new granular access token if it did.
+5. Create a new release in GitHub.
+6. This will trigger the CI/CD pipeline and publish the new version to npm.
 
 ## Folder Structure
 
