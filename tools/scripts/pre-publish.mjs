@@ -23,7 +23,7 @@ const validVersion = /^(\d+)\.(\d+)\.(\d+)$/;
 
 
 const args = process.argv.slice(2);
-let version;
+let version = '';
 if (args.length) {
     // Make sure that the version is valid
     if (!validVersion.test(version)) {
@@ -40,7 +40,7 @@ for (const node of Object.values(graph.nodes)) {
     if (prjPath) {
         const json = JSON.parse(readFileSync(prjPath + `/package.json`).toString());
 
-        if (version) {
+        if (version !== '') {
             json.version = version;
         } else {
             const prevVersion = json.version;
@@ -51,7 +51,7 @@ for (const node of Object.values(graph.nodes)) {
             json.version = `${major}.${minor}.${patch + 1}`;
         }
         writeFileSync(prjPath + `package.json`, JSON.stringify(json, null, 2));
-        console.log(chalk.green(`Updated version in ${node.name} to ${version}`));
+        console.log(chalk.green(`Updated version in ${node.name} to ${json.version}`));
     }
 }
 
