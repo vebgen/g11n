@@ -9,7 +9,6 @@ import stringify from 'json-stable-stringify';
 import type { Comparator } from 'json-stable-stringify';
 import {
     MessageDescriptor,
-    Opts,
     interpolateName,
 } from '@formatjs/ts-transformer';
 import { transformWithTs } from './transform';
@@ -18,6 +17,8 @@ import { parse } from '@formatjs/icu-messageformat-parser';
 import { printAST } from '@formatjs/icu-messageformat-parser/printer';
 import { hoistSelectors } from '@formatjs/icu-messageformat-parser/manipulator';
 import ts from 'typescript';
+
+import { Opts} from './transform';
 
 export type FormatFn<T = Record<string, MessageDescriptor>> = (
     msgs: Record<string, MessageDescriptor>,

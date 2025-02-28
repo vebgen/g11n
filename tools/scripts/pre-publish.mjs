@@ -20,7 +20,7 @@ import devkit from '@nx/devkit';
 const { readCachedProjectGraph } = devkit;
 
 const validVersion = /^(\d+)\.(\d+)\.(\d+)$/;
-
+execSync(`pnpm exec nx run-many --target=build --all`);
 
 const args = process.argv.slice(2);
 let version = '';
