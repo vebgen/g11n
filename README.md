@@ -7,6 +7,15 @@ Check out individual package READMEs for more information:
 - [@vebgen/g11n](./packages/g11n/README.md)
 - [@vebgen/g11n-cli](./apps/g11n-cli/README.md)
 
+## Releasing a new version
+
+1. Update the version in the `package.json` file of the package you want 
+to release.
+2. Commit andd create a new tag.
+3. Push the code and the tags.
+4. Create a new release in GitHub.
+5. This will trigger the CI/CD pipeline and publish the new version to npm.
+
 ## Folder Structure
 
 ### Top Level
