@@ -34,6 +34,8 @@ jobs:
     create-release:
         needs: publish-npm  # Waits for npm publish to complete
         runs-on: ubuntu-latest
+        permissions:
+            contents: write
         steps:
             - name: Checkout Repo
               uses: actions/checkout@v3

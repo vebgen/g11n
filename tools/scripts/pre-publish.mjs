@@ -34,16 +34,18 @@ if (args.length) {
     version = args[0];
 }
 
-
+// Loop through all projects.
 const graph = readCachedProjectGraph();
 for (const node of Object.values(graph.nodes)) {
     const prjPath = node.data?.root;
     if (prjPath) {
+        // Read current version.
         const json = JSON.parse(readFileSync(prjPath + `/package.json`).toString());
 
         if (version !== '') {
             json.version = version;
         } else {
+            // Increment patch version.
             const prevVersion = json.version;
             const match = validVersion.exec(prevVersion);
             const major = parseInt(match[1]);
@@ -52,10 +54,15 @@ for (const node of Object.values(graph.nodes)) {
             json.version = `${major}.${minor}.${patch + 1}`;
         }
         if (tag === '') {
+            // First valid version becomes the tag for the release.
             tag = json.version;
         }
-        writeFileSync(prjPath + `/package.json`, JSON.stringify(json, null, 2));
-        console.log(chalk.green(`Updated version in ${node.name} to ${json.version}`));
+        writeFileSync(
+            prjPath + `/package.json`, JSON.stringify(json, null, 2)
+        );
+        console.log(
+            chalk.green(`Updated version in ${node.name} to ${json.version}`)
+        );
     }
 }
 
@@ -64,4 +71,6 @@ if (tag !== '') {
     execSync(`git commit -m "Bump version to ${tag}"`);
     execSync(`git tag -a v${tag} -m "Version ${tag}"`);
     execSync(`git push --tag`);
+} else {
+    console.log(chalk.yellow('No projects were updated.'));
 }
