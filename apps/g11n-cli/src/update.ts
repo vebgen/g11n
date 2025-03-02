@@ -4,7 +4,7 @@ import { sync as globSync } from 'fast-glob';
 import type { MessageDescriptor } from '@formatjs/cli-lib';
 import type { Formatter } from '@formatjs/cli-lib/src/formatters';
 import { join, basename } from 'path';
-import { readFileSync, existsSync } from "fs";
+import { readFileSync, existsSync, writeFile, writeFileSync } from "fs";
 import { extractAndWrite, ExtractCLIOptions } from './formatjs-cli-lib/extract';
 
 /**
@@ -162,6 +162,9 @@ export async function performUpdate(
     }
 
     const loc_output = {};
+    for (const locale of locales) {
+        loc_output[locale] = {};
+    }
 
     function processRecord(target: any) {
         if (Object.prototype.hasOwnProperty.call(target, idKey)) {
@@ -176,6 +179,12 @@ export async function performUpdate(
         }
     }
     processRecord(merged);
+
+    for (const locale of locales) {
+        const loc_file = join(outPath, `${locale}.json`);
+        const loc_msgs = loc_output[locale];
+        writeFileSync(loc_file, JSON.stringify(loc_msgs, null, 2));
+    }
 
     return true;
 }
