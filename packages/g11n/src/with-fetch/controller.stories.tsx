@@ -76,3 +76,9 @@ const Template: StoryFn<StoryProps> = (args) => (
  */
 export const Default: StoryFn<StoryProps> = Template.bind({});
 Default.args = {};
+
+
+export const Missing: StoryFn<StoryProps> = Template.bind({});
+Missing.args = {
+    initialLocale: "xy",
+};

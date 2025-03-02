@@ -4,6 +4,7 @@ import {
 } from 'react-intl';
 
 import { G11nProvider } from "../common/context";
+import { CoProps } from "../common";
 
 
 /**
@@ -13,30 +14,7 @@ import { G11nProvider } from "../common/context";
  * initial configuration, serving as initial parameters. Changing them after
  * the component has been mounted will have no effect.
  */
-export interface SimpleControllerProps extends Omit<
-    IntlConfig, "messages" | "locale"
-> {
-    /**
-     * The initial locale.
-     *
-     * By default it queries the browser for the current locale.
-     * After the component has been mounted, the locale can be changed
-     * by using the {@link G11nContext}.
-     */
-    initialLocale?: string;
-
-    /**
-     * The messages for all supported locales.
-     *
-     * First key is the locale, second key is the message key.
-     */
-    messages: Record<string, Record<string, string>>;
-
-    /**
-     * The children to render.
-     */
-    children: React.ReactNode;
-}
+export interface SimpleControllerProps extends CoProps {}
 
 
 /**

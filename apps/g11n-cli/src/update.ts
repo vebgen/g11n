@@ -122,16 +122,60 @@ export async function performUpdate(
 
     // Compile the extracted messages into separate JSON files.
     // console.log(`Compiling messages from %s...`, outFile);
-    await Promise.all(locales.map(async (locale) => {
-        // console.log(`Compiling ${locale}...`);
-        formatter.compile = (msgs) => compile(msgs, locale);
-        await compileAndWrite([outFile, ...extraSources], {
-            outFile: join(outPath, `${locale}.json`),
-            ast: false,
-            skipErrors: false,
-            format: formatter,
-        })
-    }));
+    // await Promise.all(locales.map(async (locale) => {
+    //     // console.log(`Compiling ${locale}...`);
+    //     formatter.compile = (msgs) => compile(msgs, locale);
+    //     await compileAndWrite([outFile, ...extraSources], {
+    //         outFile: join(outPath, `${locale}.json`),
+    //         ast: false,
+    //         skipErrors: false,
+    //         format: formatter,
+    //     })
+    // }));
+
+    const merged = JSON.parse(readFileSync(outFile, "utf8"));
+
+    function deepMerge(target: any, source: any): any {
+        for (const key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+                if (
+                    source[key] &&
+                    typeof source[key] === 'object' &&
+                    !Array.isArray(source[key])
+                ) {
+                    if (!target[key]) {
+                        target[key] = {};
+                    }
+                    deepMerge(target[key], source[key]);
+                } else {
+                    target[key] = source[key];
+                }
+            }
+        }
+        return target;
+    }
+
+    for (const src of extraSources) {
+        // Read this file from the disk.
+        const msgs = JSON.parse(readFileSync(src, "utf8"));
+        deepMerge(merged, msgs);
+    }
+
+    const loc_output = {};
+
+    function processRecord(target: any) {
+        if (Object.prototype.hasOwnProperty.call(target, idKey)) {
+            for (const locale of locales) {
+                const value = target[locale] || target.defaultMessage || target[idKey];
+                loc_output[locale][target[idKey]] = value;
+            }
+        } else {
+            for (const key in target) {
+                processRecord(target[key]);
+            }
+        }
+    }
+    processRecord(merged);
 
     return true;
 }

@@ -6,6 +6,7 @@ import {
 } from 'react-intl';
 
 import { G11nProvider } from "../common/context";
+import { CoProps } from "../common";
 
 
 /**
@@ -15,9 +16,7 @@ import { G11nProvider } from "../common/context";
  * initial configuration, serving as initial parameters. Changing them after
  * the component has been mounted will have no effect.
  */
-export interface FetchControllerProps extends Omit<
-    IntlConfig, "messages" | "locale"
-> {
+export interface FetchControllerProps extends CoProps {
     /**
      * The initial locale.
      *
@@ -32,13 +31,6 @@ export interface FetchControllerProps extends Omit<
     initialLocale?: string;
 
     /**
-     * Preloaded locales.
-     *
-     * First key is the locale, second key is the message key.
-     */
-    messages: Record<string, Record<string, string>>;
-
-    /**
      * The remote location from where to fetch the messages.
      *
      * This can be either a string, in which case `/`, the locale key and
@@ -51,11 +43,6 @@ export interface FetchControllerProps extends Omit<
      * The options to pass to the fetch request.
      */
     fetchOptions?: RequestInit;
-
-    /**
-     * The children to render.
-     */
-    children: React.ReactNode;
 }
 
 
@@ -379,6 +366,9 @@ export const FetchController: FC<FetchControllerProps> = ({
 
     // Only render the children if there is a locale.
     if (!state.locale || !value) {
+        if (process.env.NODE_ENV !== 'production') {
+            console.error('Locale or Intl value is not available');
+        }
         return null;
     }
 
