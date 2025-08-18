@@ -101,7 +101,7 @@ importers:
         version: 17.2.0(@swc-node/register@1.6.8)(@swc/core@1.3.100)(@types/node@20.10.4)(debug@4.3.4)(eslint@8.55.0)(nx@17.2.0)(ts-node@10.9.2)(typescript@5.3.3)(verdaccio@5.29.0)
       '@nx/react':
         specifier: 17.2.0
-        version: 17.2.0(@swc-node/register@1.6.8)(@swc/core@1.3.100)(@types/node@20.10.4)(debug@4.3.4)(eslint@8.55.0)(nx@17.2.0)(typescript@5.3.3)(verdaccio@5.29.0)(webpack@5.101.0)
+        version: 17.2.0(@swc-node/register@1.6.8)(@swc/core@1.3.100)(@types/node@20.10.4)(debug@4.3.4)(eslint@8.55.0)(nx@17.2.0)(typescript@5.3.3)(verdaccio@5.29.0)(webpack@5.101.2)
       '@nx/rollup':
         specifier: 17.2.0
         version: 17.2.0(@babel/core@7.23.5)(@swc-node/register@1.6.8)(@swc/core@1.3.100)(@types/node@20.10.4)(debug@4.3.4)(nx@17.2.0)(ts-node@10.9.2)(typescript@5.3.3)(verdaccio@5.29.0)
@@ -119,7 +119,7 @@ importers:
         version: 17.2.0(@swc-node/register@1.6.8)(@swc/core@1.3.100)(debug@4.3.4)
       '@pmmmwh/react-refresh-webpack-plugin':
         specifier: ^0.5.11
-        version: 0.5.11(react-refresh@0.17.0)(webpack@5.101.0)
+        version: 0.5.11(react-refresh@0.17.0)(webpack@5.101.2)
       '@rollup/plugin-terser':
         specifier: ^0.4.4
         version: 0.4.4(rollup@2.79.2)
@@ -233,7 +233,7 @@ importers:
         version: 5.3.0
       copy-webpack-plugin:
         specifier: ^11.0.0
-        version: 11.0.0(webpack@5.101.0)
+        version: 11.0.0(webpack@5.101.2)
       cypress:
         specifier: ^13.6.1
         version: 13.6.1
@@ -2726,11 +2726,11 @@ packages:
       '@types/yargs': 17.0.32
       chalk: 4.1.2
 
-  /@jridgewell/gen-mapping@0.3.12:
-    resolution: {integrity: sha512-OuLGC46TjB5BbN1dH8JULVVZY4WTdkF7tV9Ys6wLL1rubZnCMstOhNHueU5bLCrnRuDhKPDM4g6sw4Bel5Gzqg==}
+  /@jridgewell/gen-mapping@0.3.13:
+    resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
     dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.4
-      '@jridgewell/trace-mapping': 0.3.29
+      '@jridgewell/sourcemap-codec': 1.5.5
+      '@jridgewell/trace-mapping': 0.3.30
     dev: true
 
   /@jridgewell/gen-mapping@0.3.3:
@@ -2754,11 +2754,11 @@ packages:
     resolution: {integrity: sha512-xnkseuNADM0gt2bs+BvhO0p78Mk762YnZdsuzFV018NoG1Sj1SCQvpSqa7XUaTam5vAGasABV9qXASMKnFMwMw==}
     engines: {node: '>=6.0.0'}
 
-  /@jridgewell/source-map@0.3.10:
-    resolution: {integrity: sha512-0pPkgz9dY+bijgistcTTJ5mR+ocqRXLuhXHYdzoMmmoJ2C9S46RCm2GMUbatPEUK9Yjy26IrAy8D/M00lLkv+Q==}
+  /@jridgewell/source-map@0.3.11:
+    resolution: {integrity: sha512-ZMp1V8ZFcPG5dIWnQLr3NSI1MiCU7UETdS/A0G8V/XWHvJv3ZsFqutJn1Y5RPmAPX6F3BiE397OqveU/9NCuIA==}
     dependencies:
-      '@jridgewell/gen-mapping': 0.3.12
-      '@jridgewell/trace-mapping': 0.3.29
+      '@jridgewell/gen-mapping': 0.3.13
+      '@jridgewell/trace-mapping': 0.3.30
     dev: true
 
   /@jridgewell/source-map@0.3.5:
@@ -2771,8 +2771,8 @@ packages:
   /@jridgewell/sourcemap-codec@1.4.15:
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
 
-  /@jridgewell/sourcemap-codec@1.5.4:
-    resolution: {integrity: sha512-VT2+G1VQs/9oz078bLrYbecdZKs912zQlkelYpuf+SXF+QvZDYJlbx/LSx+meSAwdDFnF8FVXW92AVjjkVmgFw==}
+  /@jridgewell/sourcemap-codec@1.5.5:
+    resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
     dev: true
 
   /@jridgewell/trace-mapping@0.3.20:
@@ -2781,11 +2781,11 @@ packages:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /@jridgewell/trace-mapping@0.3.29:
-    resolution: {integrity: sha512-uw6guiW/gcAGPDhLmd77/6lW8QLeiV5RUTsAX46Db6oLhGaVj4lhnPwb184s1bkc8kdVg/+h988dro8GRDpmYQ==}
+  /@jridgewell/trace-mapping@0.3.30:
+    resolution: {integrity: sha512-GQ7Nw5G2lTu/BtHTKfXhKHok2WGetd4XYcVKGx00SjAk8GMwgJM3zr6zORiPGuOE+/vkc90KtTosSSvaCjKb2Q==}
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
-      '@jridgewell/sourcemap-codec': 1.5.4
+      '@jridgewell/sourcemap-codec': 1.5.5
     dev: true
 
   /@jridgewell/trace-mapping@0.3.9:
@@ -3004,10 +3004,10 @@ packages:
       - verdaccio
     dev: true
 
-  /@nrwl/react@17.2.0(@swc-node/register@1.6.8)(@swc/core@1.3.100)(@types/node@20.10.4)(debug@4.3.4)(eslint@8.55.0)(nx@17.2.0)(typescript@5.3.3)(verdaccio@5.29.0)(webpack@5.101.0):
+  /@nrwl/react@17.2.0(@swc-node/register@1.6.8)(@swc/core@1.3.100)(@types/node@20.10.4)(debug@4.3.4)(eslint@8.55.0)(nx@17.2.0)(typescript@5.3.3)(verdaccio@5.29.0)(webpack@5.101.2):
     resolution: {integrity: sha512-I9daqtJ3L4DX66crknzWOBPC0vU0HxVM3NZZc3HdTkXYrkD1vdI7vmiKrOLtfHz4K2jxw1aPhx/VgGfvbw/5qw==}
     dependencies:
-      '@nx/react': 17.2.0(@swc-node/register@1.6.8)(@swc/core@1.3.100)(@types/node@20.10.4)(debug@4.3.4)(eslint@8.55.0)(nx@17.2.0)(typescript@5.3.3)(verdaccio@5.29.0)(webpack@5.101.0)
+      '@nx/react': 17.2.0(@swc-node/register@1.6.8)(@swc/core@1.3.100)(@types/node@20.10.4)(debug@4.3.4)(eslint@8.55.0)(nx@17.2.0)(typescript@5.3.3)(verdaccio@5.29.0)(webpack@5.101.2)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@swc-node/register'
@@ -3548,10 +3548,10 @@ packages:
       - verdaccio
     dev: true
 
-  /@nx/react@17.2.0(@swc-node/register@1.6.8)(@swc/core@1.3.100)(@types/node@20.10.4)(debug@4.3.4)(eslint@8.55.0)(nx@17.2.0)(typescript@5.3.3)(verdaccio@5.29.0)(webpack@5.101.0):
+  /@nx/react@17.2.0(@swc-node/register@1.6.8)(@swc/core@1.3.100)(@types/node@20.10.4)(debug@4.3.4)(eslint@8.55.0)(nx@17.2.0)(typescript@5.3.3)(verdaccio@5.29.0)(webpack@5.101.2):
     resolution: {integrity: sha512-GiR1PMl63DYJMJhfXbQ/ZNfbFZvDeQwU4xbrmMIlu/LeLA4rrU191Dtf2CODEf1xevhUYXbCFaNrplNCJchKGg==}
     dependencies:
-      '@nrwl/react': 17.2.0(@swc-node/register@1.6.8)(@swc/core@1.3.100)(@types/node@20.10.4)(debug@4.3.4)(eslint@8.55.0)(nx@17.2.0)(typescript@5.3.3)(verdaccio@5.29.0)(webpack@5.101.0)
+      '@nrwl/react': 17.2.0(@swc-node/register@1.6.8)(@swc/core@1.3.100)(@types/node@20.10.4)(debug@4.3.4)(eslint@8.55.0)(nx@17.2.0)(typescript@5.3.3)(verdaccio@5.29.0)(webpack@5.101.2)
       '@nx/devkit': 17.2.0(nx@17.2.0)
       '@nx/eslint': 17.2.0(@swc-node/register@1.6.8)(@swc/core@1.3.100)(@types/node@20.10.4)(debug@4.3.4)(eslint@8.55.0)(nx@17.2.0)(verdaccio@5.29.0)
       '@nx/js': 17.2.0(@swc-node/register@1.6.8)(@swc/core@1.3.100)(@types/node@20.10.4)(debug@4.3.4)(nx@17.2.0)(typescript@5.3.3)(verdaccio@5.29.0)
@@ -3559,7 +3559,7 @@ packages:
       '@phenomnomnominal/tsquery': 5.0.1(typescript@5.3.3)
       '@svgr/webpack': 8.1.0(typescript@5.3.3)
       chalk: 4.1.2
-      file-loader: 6.2.0(webpack@5.101.0)
+      file-loader: 6.2.0(webpack@5.101.2)
       minimatch: 3.0.5
       tslib: 2.6.2
     transitivePeerDependencies:
@@ -3814,7 +3814,7 @@ packages:
       webpack: 5.94.0(@swc/core@1.3.100)(esbuild@0.18.20)
     dev: true
 
-  /@pmmmwh/react-refresh-webpack-plugin@0.5.11(react-refresh@0.17.0)(webpack@5.101.0):
+  /@pmmmwh/react-refresh-webpack-plugin@0.5.11(react-refresh@0.17.0)(webpack@5.101.2):
     resolution: {integrity: sha512-7j/6vdTym0+qZ6u4XbSAxrWBGYSdCfTzySkj7WAFgDLmSyWlOrWvpyzxlFh5jtw9dn0oL/jtW+06XfFiisN3JQ==}
     engines: {node: '>= 10.13'}
     peerDependencies:
@@ -3850,7 +3850,7 @@ packages:
       react-refresh: 0.17.0
       schema-utils: 3.3.0
       source-map: 0.7.4
-      webpack: 5.101.0(@swc/core@1.3.100)(esbuild@0.18.20)
+      webpack: 5.101.2(@swc/core@1.3.100)(esbuild@0.18.20)
     dev: true
 
   /@radix-ui/number@1.0.1:
@@ -3865,8 +3865,8 @@ packages:
       '@babel/runtime': 7.23.5
     dev: true
 
-  /@radix-ui/primitive@1.1.2:
-    resolution: {integrity: sha512-XnbHrrprsNqZKQhStrSwgRUQzoCI1glLzdw79xiZPoofhGICeZRSQ3dIxAKH1gb3OHfNf4d6f+vAv3kil2eggA==}
+  /@radix-ui/primitive@1.1.3:
+    resolution: {integrity: sha512-JTF99U/6XIjCBo0wqkU5sK10glYe27MRRsfwoiq5zzOEZLHU3A3KCMa5X/azekYRCJ0HlwI0crAXS/5dEHTzDg==}
     dev: true
 
   /@radix-ui/react-arrow@1.0.3(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0):
@@ -4230,8 +4230,8 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: true
 
-  /@radix-ui/react-roving-focus@1.1.10(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-dT9aOXUen9JSsxnMPv/0VqySQf5eDQ6LCk5Sw28kamz8wSOW2bJdlX2Bg5VUIIcV+6XlHpWTIuTPCf/UNIyq8Q==}
+  /@radix-ui/react-roving-focus@1.1.11(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-7A6S9jSgm/S+7MdtNDSb+IU859vQqJ/QAtcYQcfFC6W8RS4IxIZDldLR0xqCFZ6DCyrQLjLPsxtTNch5jVA4lA==}
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
@@ -4243,7 +4243,7 @@ packages:
       '@types/react-dom':
         optional: true
     dependencies:
-      '@radix-ui/primitive': 1.1.2
+      '@radix-ui/primitive': 1.1.3
       '@radix-ui/react-collection': 1.1.7(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-compose-refs': 1.1.2(@types/react@18.2.43)(react@18.2.0)
       '@radix-ui/react-context': 1.1.2(@types/react@18.2.43)(react@18.2.0)
@@ -4396,8 +4396,8 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: true
 
-  /@radix-ui/react-toggle-group@1.1.10(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-kiU694Km3WFLTC75DdqgM/3Jauf3rD9wxeS9XtyWFKsBUeZA337lC+6uUazT7I1DhanZ5gyD5Stf8uf2dbQxOQ==}
+  /@radix-ui/react-toggle-group@1.1.11(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-5umnS0T8JQzQT6HbPyO7Hh9dgd82NmS36DQr+X/YJ9ctFNCiiQd6IJAYYZ33LUwm8M+taCz5t2ui29fHZc4Y6Q==}
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
@@ -4409,12 +4409,12 @@ packages:
       '@types/react-dom':
         optional: true
     dependencies:
-      '@radix-ui/primitive': 1.1.2
+      '@radix-ui/primitive': 1.1.3
       '@radix-ui/react-context': 1.1.2(@types/react@18.2.43)(react@18.2.0)
       '@radix-ui/react-direction': 1.1.1(@types/react@18.2.43)(react@18.2.0)
       '@radix-ui/react-primitive': 2.1.3(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
-      '@radix-ui/react-roving-focus': 1.1.10(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
-      '@radix-ui/react-toggle': 1.1.9(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-roving-focus': 1.1.11(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-toggle': 1.1.10(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-use-controllable-state': 1.2.2(@types/react@18.2.43)(react@18.2.0)
       '@types/react': 18.2.43
       '@types/react-dom': 18.2.17
@@ -4445,8 +4445,8 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: true
 
-  /@radix-ui/react-toggle@1.1.9(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-ZoFkBBz9zv9GWer7wIjvdRxmh2wyc2oKWw6C6CseWd6/yq1DK/l5lJ+wnsmFwJZbBYqr02mrf8A2q/CVCuM3ZA==}
+  /@radix-ui/react-toggle@1.1.10(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-lS1odchhFTeZv3xwHH31YPObmJn8gOg7Lq12inrr0+BH/l3Tsq32VfjqH1oh80ARM3mlkfMic15n0kg4sD1poQ==}
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
@@ -4458,7 +4458,7 @@ packages:
       '@types/react-dom':
         optional: true
     dependencies:
-      '@radix-ui/primitive': 1.1.2
+      '@radix-ui/primitive': 1.1.3
       '@radix-ui/react-primitive': 2.1.3(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-use-controllable-state': 1.2.2(@types/react@18.2.43)(react@18.2.0)
       '@types/react': 18.2.43
@@ -4494,8 +4494,8 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: true
 
-  /@radix-ui/react-toolbar@1.1.10(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-jiwQsduEL++M4YBIurjSa+voD86OIytCod0/dbIxFZDLD8NfO1//keXYMfsW8BPcfqwoNjt+y06XcJqAb4KR7A==}
+  /@radix-ui/react-toolbar@1.1.11(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-4ol06/1bLoFu1nwUqzdD4Y5RZ9oDdKeiHIsntug54Hcr1pgaHiPqHFEaXI1IFP/EsOfROQZ8Mig9VTIRza6Tjg==}
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
@@ -4507,13 +4507,13 @@ packages:
       '@types/react-dom':
         optional: true
     dependencies:
-      '@radix-ui/primitive': 1.1.2
+      '@radix-ui/primitive': 1.1.3
       '@radix-ui/react-context': 1.1.2(@types/react@18.2.43)(react@18.2.0)
       '@radix-ui/react-direction': 1.1.1(@types/react@18.2.43)(react@18.2.0)
       '@radix-ui/react-primitive': 2.1.3(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
-      '@radix-ui/react-roving-focus': 1.1.10(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-roving-focus': 1.1.11(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-separator': 1.1.7(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
-      '@radix-ui/react-toggle-group': 1.1.10(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-toggle-group': 1.1.11(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
       '@types/react': 18.2.43
       '@types/react-dom': 18.2.17
       react: 18.2.0
@@ -5391,7 +5391,7 @@ packages:
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       '@radix-ui/react-select': 1.2.2(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
-      '@radix-ui/react-toolbar': 1.1.10(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-toolbar': 1.1.11(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
       '@storybook/client-logger': 7.6.20
       '@storybook/csf': 0.1.13
       '@storybook/global': 5.0.0
@@ -8771,15 +8771,15 @@ packages:
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.2)
 
-  /browserslist@4.25.1:
-    resolution: {integrity: sha512-KGj0KoOMXLpSNkkEI6Z6mShmQy0bc1I+T7K9N81k4WWMrfz+6fQ6es80B/YLAeRoKvjYE1YSHHOW1qe9xIVzHw==}
+  /browserslist@4.25.2:
+    resolution: {integrity: sha512-0si2SJK3ooGzIawRu61ZdPCO1IncZwS8IzuX73sPZsXW6EQ/w/DAfPyKI8l1ETTCr2MnvqWitmlCUxgdul45jA==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001731
-      electron-to-chromium: 1.5.197
+      caniuse-lite: 1.0.30001735
+      electron-to-chromium: 1.5.203
       node-releases: 2.0.19
-      update-browserslist-db: 1.1.3(browserslist@4.25.1)
+      update-browserslist-db: 1.1.3(browserslist@4.25.2)
     dev: true
 
   /bs-logger@0.2.6:
@@ -8931,8 +8931,8 @@ packages:
   /caniuse-lite@1.0.30001566:
     resolution: {integrity: sha512-ggIhCsTxmITBAMmK8yZjEhCO5/47jKXPu6Dha/wuCS4JePVL+3uiDEBuhu2aIoT+bqTOR8L76Ip1ARL9xYsEJA==}
 
-  /caniuse-lite@1.0.30001731:
-    resolution: {integrity: sha512-lDdp2/wrOmTRWuoB5DpfNkC0rJDU8DqRa6nYL6HK6sytw70QMopt/NIc/9SM7ylItlBWfACXk0tEn37UWM/+mg==}
+  /caniuse-lite@1.0.30001735:
+    resolution: {integrity: sha512-EV/laoX7Wq2J9TQlyIXRxTJqIw4sxfXS4OYgudGxBYRuTv0q7AM6yMEpU/Vo1I94thg9U6EZ2NfZx9GJq83u7w==}
     dev: true
 
   /case-sensitive-paths-webpack-plugin@2.4.0:
@@ -9399,7 +9399,7 @@ packages:
       webpack: 5.94.0(@swc/core@1.3.100)(esbuild@0.18.20)
     dev: true
 
-  /copy-webpack-plugin@11.0.0(webpack@5.101.0):
+  /copy-webpack-plugin@11.0.0(webpack@5.101.2):
     resolution: {integrity: sha512-fX2MWpamkW0hZxMEg0+mYnA40LTosOSa5TqZ9GYIBzyJa9C3QUaMPSE2xAi/buNr8u89SfD9wHSQVBzrRa/SOQ==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
@@ -9411,7 +9411,7 @@ packages:
       normalize-path: 3.0.0
       schema-utils: 4.2.0
       serialize-javascript: 6.0.1
-      webpack: 5.101.0(@swc/core@1.3.100)(esbuild@0.18.20)
+      webpack: 5.101.2(@swc/core@1.3.100)(esbuild@0.18.20)
     dev: true
 
   /core-js-compat@3.34.0:
@@ -10415,8 +10415,8 @@ packages:
   /electron-to-chromium@1.4.609:
     resolution: {integrity: sha512-ihiCP7PJmjoGNuLpl7TjNA8pCQWu09vGyjlPYw1Rqww4gvNuCcmvl+44G+2QyJ6S2K4o+wbTS++Xz0YN8Q9ERw==}
 
-  /electron-to-chromium@1.5.197:
-    resolution: {integrity: sha512-m1xWB3g7vJ6asIFz+2pBUbq3uGmfmln1M9SSvBe4QIFWYrRHylP73zL/3nMjDmwz8V+1xAXQDfBd6+HPW0WvDQ==}
+  /electron-to-chromium@1.5.203:
+    resolution: {integrity: sha512-uz4i0vLhfm6dLZWbz/iH88KNDV+ivj5+2SA+utpgjKaj9Q0iDLuwk6Idhe9BTxciHudyx6IvTvijhkPvFGUQ0g==}
     dev: true
 
   /emittery@0.13.1:
@@ -11360,7 +11360,7 @@ packages:
       flat-cache: 3.2.0
     dev: true
 
-  /file-loader@6.2.0(webpack@5.101.0):
+  /file-loader@6.2.0(webpack@5.101.2):
     resolution: {integrity: sha512-qo3glqyTa61Ytg4u73GultjHGjdRyig3tG6lPtyX/jOEJvHif9uB0/OCI2Kif6ctF3caQTW2G5gym21oAsI4pw==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -11368,7 +11368,7 @@ packages:
     dependencies:
       loader-utils: 2.0.4
       schema-utils: 3.3.0
-      webpack: 5.101.0(@swc/core@1.3.100)(esbuild@0.18.20)
+      webpack: 5.101.2(@swc/core@1.3.100)(esbuild@0.18.20)
     dev: true
 
   /file-system-cache@2.3.0:
@@ -18655,7 +18655,7 @@ packages:
       webpack: 5.94.0(@swc/core@1.3.100)(esbuild@0.18.20)
     dev: true
 
-  /terser-webpack-plugin@5.3.14(@swc/core@1.3.100)(esbuild@0.18.20)(webpack@5.101.0):
+  /terser-webpack-plugin@5.3.14(@swc/core@1.3.100)(esbuild@0.18.20)(webpack@5.101.2):
     resolution: {integrity: sha512-vkZjpUjb6OMS7dhV+tILUW6BhpDR7P2L/aQSAv+Uwk+m8KATX9EccViHTJR2qDtACKPIYndLGCyl3FMo+r2LMw==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -18671,14 +18671,14 @@ packages:
       uglify-js:
         optional: true
     dependencies:
-      '@jridgewell/trace-mapping': 0.3.29
+      '@jridgewell/trace-mapping': 0.3.30
       '@swc/core': 1.3.100(@swc/helpers@0.5.3)
       esbuild: 0.18.20
       jest-worker: 27.5.1
       schema-utils: 4.3.2
       serialize-javascript: 6.0.2
       terser: 5.43.1
-      webpack: 5.101.0(@swc/core@1.3.100)(esbuild@0.18.20)
+      webpack: 5.101.2(@swc/core@1.3.100)(esbuild@0.18.20)
     dev: true
 
   /terser-webpack-plugin@5.3.9(@swc/core@1.3.100)(esbuild@0.18.20)(webpack@5.94.0):
@@ -18723,7 +18723,7 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
-      '@jridgewell/source-map': 0.3.10
+      '@jridgewell/source-map': 0.3.11
       acorn: 8.15.0
       commander: 2.20.3
       source-map-support: 0.5.21
@@ -19351,13 +19351,13 @@ packages:
       escalade: 3.1.1
       picocolors: 1.0.0
 
-  /update-browserslist-db@1.1.3(browserslist@4.25.1):
+  /update-browserslist-db@1.1.3(browserslist@4.25.2):
     resolution: {integrity: sha512-UxhIZQ+QInVdunkDAaiazvvT/+fXL5Osr0JZlJulepYu6Jd7qJtDZjlur0emRlT71EN3ScPoE7gvsuIKKNavKw==}
     hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
     dependencies:
-      browserslist: 4.25.1
+      browserslist: 4.25.2
       escalade: 3.2.0
       picocolors: 1.1.1
     dev: true
@@ -19838,8 +19838,8 @@ packages:
     resolution: {integrity: sha512-poXpCylU7ExuvZK8z+On3kX+S8o/2dQ/SVYueKA0D4WEMXROXgY8Ez50/bQEUmvoSMMrWcrJqCHuhAbsiwg7Dg==}
     dev: true
 
-  /webpack@5.101.0(@swc/core@1.3.100)(esbuild@0.18.20):
-    resolution: {integrity: sha512-B4t+nJqytPeuZlHuIKTbalhljIFXeNRqrUGAQgTGlfOl2lXXKXw+yZu6bicycP+PUlM44CxBjCFD6aciKFT3LQ==}
+  /webpack@5.101.2(@swc/core@1.3.100)(esbuild@0.18.20):
+    resolution: {integrity: sha512-4JLXU0tD6OZNVqlwzm3HGEhAHufSiyv+skb7q0d2367VDMzrU1Q/ZeepvkcHH0rZie6uqEtTQQe0OEOOluH3Mg==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     peerDependencies:
@@ -19856,7 +19856,7 @@ packages:
       '@webassemblyjs/wasm-parser': 1.14.1
       acorn: 8.15.0
       acorn-import-phases: 1.0.4(acorn@8.15.0)
-      browserslist: 4.25.1
+      browserslist: 4.25.2
       chrome-trace-event: 1.0.4
       enhanced-resolve: 5.18.3
       es-module-lexer: 1.7.0
@@ -19870,7 +19870,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 4.3.2
       tapable: 2.2.2
-      terser-webpack-plugin: 5.3.14(@swc/core@1.3.100)(esbuild@0.18.20)(webpack@5.101.0)
+      terser-webpack-plugin: 5.3.14(@swc/core@1.3.100)(esbuild@0.18.20)(webpack@5.101.2)
       watchpack: 2.4.4
       webpack-sources: 3.3.3
     transitivePeerDependencies:
