@@ -29,7 +29,7 @@
     "devDependencies": {
         "@babel/core": "^7.29.6",
         "@babel/preset-react": "^7.23.3",
-        "@faker-js/faker": "^8.3.1",
+        "@faker-js/faker": "^10.5.0",
         "@formatjs/cli": "^6.2.4",
         "@nx/cypress": "17.2.0",
         "@nx/devkit": "17.2.0",
